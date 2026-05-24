@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
-const appBase = '/projects/gracht.app/';
+const appBase = process.env.NODE_ENV === 'production' ? '/projects/gracht.app/' : '/';
 
 export default defineConfig({
   plugins: [
@@ -11,13 +11,21 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['gracht.svg', 'icon-192.png', 'icon-512.png'],
+      includeAssets: [
+        'app-icon.png',
+        'apple-touch-icon.png',
+        'favicon-32.png',
+        'icon-192.png',
+        'icon-512.png',
+        'maskable-192.png',
+        'maskable-512.png'
+      ],
       manifest: {
         name: 'gracht.app',
         short_name: 'gracht',
         description: 'Local-first Dutch A0-A1 flashcard trainer.',
-        theme_color: '#0f766e',
-        background_color: '#f7fbf8',
+        theme_color: '#07162f',
+        background_color: '#07162f',
         display: 'standalone',
         orientation: 'portrait',
         start_url: appBase,
@@ -27,19 +35,25 @@ export default defineConfig({
             src: 'icon-192.png',
             sizes: '192x192',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
           },
           {
             src: 'icon-512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable'
+            purpose: 'any'
           },
           {
-            src: 'gracht.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
+            src: 'maskable-192.png',
+            sizes: '192x192',
+            type: 'image/png',
+            purpose: 'maskable'
+          },
+          {
+            src: 'maskable-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
           }
         ]
       },

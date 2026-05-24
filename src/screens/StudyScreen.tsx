@@ -43,6 +43,7 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
   const [deckScope, setDeckScope] = useState<'active' | string>('active');
   const [revealed, setRevealed] = useState(false);
   const [sessionReviews, setSessionReviews] = useState(0);
+  const [buriedMixedNoteIds, setBuriedMixedNoteIds] = useState<Set<string>>(() => new Set());
   const [startedAt, setStartedAt] = useState(() => performance.now());
 
   const queue = useMemo(
@@ -53,8 +54,9 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
         direction,
         deckScope,
         snapshot.settings.newCardsPerSession,
+        buriedMixedNoteIds,
       ),
-    [activeDeckIds, deckScope, direction, snapshot.settings.newCardsPerSession, stateMap],
+    [activeDeckIds, buriedMixedNoteIds, deckScope, direction, snapshot.settings.newCardsPerSession, stateMap],
   );
   const current = queue[0];
 
@@ -62,6 +64,16 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
     setRevealed(false);
     setStartedAt(performance.now());
   }, [current?.card.id, current?.direction]);
+
+  useEffect(() => {
+    setBuriedMixedNoteIds(new Set());
+  }, [deckScope, direction]);
+
+  function revealCurrentCard() {
+    if (!revealed) {
+      setRevealed(true);
+    }
+  }
 
   async function handleGrade(rating: Rating) {
     if (!current) {
@@ -75,12 +87,16 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
       rating,
       Math.round(performance.now() - startedAt),
     );
+    if (direction === 'mixed') {
+      setBuriedMixedNoteIds((noteIds) => new Set(noteIds).add(current.card.noteId));
+    }
     setSessionReviews((count) => count + 1);
     setRevealed(false);
   }
 
   async function handleUndo() {
     await onUndo();
+    setBuriedMixedNoteIds(new Set());
     setSessionReviews((count) => Math.max(0, count - 1));
     setRevealed(false);
   }
@@ -138,7 +154,12 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
           <p>Enable more decks or come back when the scheduler brings cards due again.</p>
         </section>
       ) : (
-        <section className="study-card" aria-live="polite">
+        <section
+          aria-live="polite"
+          className="study-card"
+          data-clickable={!revealed}
+          onClick={revealCurrentCard}
+        >
           <div className="study-card__meta">
             <span>{current.card.deckShortTitle}</span>
             <span>{current.direction === 'nl-en' ? 'Dutch -> English' : 'English -> Dutch'}</span>
@@ -151,7 +172,10 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
                 aria-label="Speak Dutch prompt"
                 className="icon-button"
                 type="button"
-                onClick={() => speakDutch(getDutchText(current), snapshot.settings.voiceURI)}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  speakDutch(getDutchText(current), snapshot.settings.voiceURI);
+                }}
               >
                 <Volume2 size={22} />
               </button>
@@ -167,7 +191,10 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
                   aria-label="Speak Dutch answer"
                   className="icon-button"
                   type="button"
-                  onClick={() => speakDutch(getDutchText(current), snapshot.settings.voiceURI)}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    speakDutch(getDutchText(current), snapshot.settings.voiceURI);
+                  }}
                 >
                   <Volume2 size={22} />
                 </button>

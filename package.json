@@ -20,6 +20,8 @@
   "license": "UNLICENSED",
   "description": "Mobile-first local Dutch A0-A1 flashcard PWA.",
   "dependencies": {
+    "@fontsource/geist": "^5.2.9",
+    "@fontsource/geist-mono": "^5.2.8",
     "dexie": "^4.4.2",
     "lucide-react": "^1.16.0",
     "react": "^19.2.6",

@@ -1,7 +1,6 @@
-import { BookOpen, Flame, Library, TrendingUp } from 'lucide-react';
+import { BookOpen, TrendingUp } from 'lucide-react';
 
 import { Button } from '../components/Button';
-import { SectionHeader } from '../components/SectionHeader';
 import { StatTile } from '../components/StatTile';
 import type { DatabaseSnapshot } from '../lib/db';
 import type { TabId } from '../lib/navigation';
@@ -11,6 +10,8 @@ type HomeScreenProps = {
   snapshot: DatabaseSnapshot;
   onNavigate: (tab: TabId) => void;
 };
+
+const appIconUrl = `${import.meta.env.BASE_URL}app-icon.png`;
 
 export function HomeScreen({ snapshot, onNavigate }: HomeScreenProps) {
   const stats = globalStats(
@@ -24,16 +25,18 @@ export function HomeScreen({ snapshot, onNavigate }: HomeScreenProps) {
 
   return (
     <main className="screen">
-      <SectionHeader
-        eyebrow="gracht.app"
-        title="Study Dutch today"
-        action={
-          <Button tone="primary" onClick={() => onNavigate('study')}>
-            <BookOpen size={18} />
-            Study
-          </Button>
-        }
-      />
+      <div className="section-header">
+        <div className="home-title-group">
+          <img className="home-app-icon" src={appIconUrl} alt="" aria-hidden="true" />
+          <div>
+            <h1>gracht.app</h1>
+          </div>
+        </div>
+        <Button tone="primary" onClick={() => onNavigate('study')}>
+          <BookOpen size={18} />
+          Study
+        </Button>
+      </div>
 
       <section className="hero-panel">
         <div>
@@ -69,16 +72,6 @@ export function HomeScreen({ snapshot, onNavigate }: HomeScreenProps) {
         </div>
       </section>
 
-      <section className="quick-actions">
-        <button type="button" onClick={() => onNavigate('decks')}>
-          <Library size={19} />
-          Manage decks
-        </button>
-        <button type="button" onClick={() => onNavigate('stats')}>
-          <Flame size={19} />
-          View stats
-        </button>
-      </section>
     </main>
   );
 }
