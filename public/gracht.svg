@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">gracht.app icon</title>
+  <desc id="desc">A canal bridge shaped like the letter g.</desc>
+  <rect width="512" height="512" rx="112" fill="#0f766e"/>
+  <path d="M112 310c28 44 80 72 144 72 83 0 150-56 150-126S339 130 256 130c-65 0-120 35-141 84h66c15-18 42-30 75-30 49 0 89 32 89 72s-40 72-89 72c-28 0-52-10-68-27h72v-52H96v61h16Z" fill="#f8faf5"/>
+  <path d="M96 394h320v34H96z" fill="#a7f3d0"/>
+  <path d="M132 394c0-36 28-64 64-64h120c36 0 64 28 64 64h-44c0-12-9-21-21-21H197c-12 0-21 9-21 21h-44Z" fill="#ccfbf1"/>
+</svg>

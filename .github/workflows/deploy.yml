@@ -1,0 +1,57 @@
+name: Deploy to evgeny.io
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout app repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate decks
+        run: npm run validate:decks
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: evgenyio/evgenyio.github.io
+          ssh-key: ${{ secrets.SITE_DEPLOY_KEY }}
+          path: site
+
+      - name: Deploy to /projects/gracht.app/
+        run: |
+          mkdir -p site/projects/gracht.app
+          rm -rf site/projects/gracht.app/*
+          cp -r dist/* site/projects/gracht.app/
+
+      - name: Commit and push
+        run: |
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add projects/gracht.app
+          if git diff --cached --quiet; then
+            echo "No changes to deploy"
+          else
+            git commit -m "Deploy gracht.app"
+            git push
+          fi
