@@ -6,7 +6,7 @@ import { Button } from '../components/Button';
 import { SectionHeader } from '../components/SectionHeader';
 import { SegmentedControl } from '../components/SegmentedControl';
 import { useVoices } from '../hooks/useVoices';
-import type { SettingsRecord, ThemePreference } from '../lib/db';
+import type { SettingsRecord, StudyInteractionMode, ThemePreference } from '../lib/db';
 
 type SettingsScreenProps = {
   settings: SettingsRecord;
@@ -26,6 +26,11 @@ const directionOptions = [
   { value: 'nl-en', label: 'NL -> EN' },
   { value: 'en-nl', label: 'EN -> NL' },
 ] as const;
+
+const studyInteractionOptions: { value: StudyInteractionMode; label: string }[] = [
+  { value: 'fixed-buttons', label: 'Buttons' },
+  { value: 'swipe', label: 'Swipe' },
+];
 
 export function SettingsScreen({ settings, onSaveSettings, onExport, onImport }: SettingsScreenProps) {
   const [importError, setImportError] = useState<string>();
@@ -68,6 +73,15 @@ export function SettingsScreen({ settings, onSaveSettings, onExport, onImport }:
           value={settings.defaultDirection}
           onChange={(defaultDirection) => void patchSettings({ defaultDirection })}
         />
+        <SegmentedControl
+          label="Study controls"
+          options={studyInteractionOptions}
+          value={settings.studyInteractionMode}
+          onChange={(studyInteractionMode) => void patchSettings({ studyInteractionMode })}
+        />
+        <p className="settings-hint">
+          Buttons keeps Reveal and grading fixed above the tabs. Swipe mode is reserved for the upcoming gesture flow.
+        </p>
       </section>
 
       <section className="settings-group">

@@ -5,11 +5,13 @@ import type { StudyDirection } from '../decks/types';
 import type { CardStatus, Rating } from './scheduler';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
+export type StudyInteractionMode = 'fixed-buttons' | 'swipe';
 
 export type SettingsRecord = {
   id: 'settings';
   theme: ThemePreference;
   defaultDirection: StudyDirection;
+  studyInteractionMode: StudyInteractionMode;
   dailyTarget: number;
   newCardsPerSession: number;
   voiceURI?: string;
@@ -66,6 +68,7 @@ const defaultSettings: SettingsRecord = {
   id: 'settings',
   theme: 'system',
   defaultDirection: 'mixed',
+  studyInteractionMode: 'fixed-buttons',
   dailyTarget: 30,
   newCardsPerSession: 10,
 };
@@ -94,6 +97,8 @@ export async function initializeDatabase() {
   const settings = await db.settings.get('settings');
   if (!settings) {
     await db.settings.put(defaultSettings);
+  } else if (!settings.studyInteractionMode) {
+    await db.settings.put({ ...defaultSettings, ...settings, studyInteractionMode: 'fixed-buttons' });
   }
 
   const existingPrefs = await db.deckPrefs.toArray();
@@ -122,7 +127,7 @@ export async function loadDatabaseSnapshot(): Promise<DatabaseSnapshot> {
   ]);
 
   return {
-    settings: settings ?? defaultSettings,
+    settings: { ...defaultSettings, ...settings },
     deckPrefs,
     cardStates,
     reviews,

@@ -1,4 +1,5 @@
 import { Check, ChevronDown, RotateCcw, Volume2 } from 'lucide-react';
+import type { CSSProperties, PointerEvent } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 
 import { Button } from '../components/Button';
@@ -38,6 +39,38 @@ const ratingButtons: { rating: Rating; label: string; tone: 'danger' | 'secondar
   { rating: 'easy', label: 'Easy', tone: 'primary' },
 ];
 
+type SwipeDirection = 'left' | 'right' | 'up' | 'down';
+
+type SwipeState = {
+  pointerId?: number;
+  startX: number;
+  startY: number;
+  currentX: number;
+  currentY: number;
+  startedAt: number;
+  isDragging: boolean;
+  isExiting: boolean;
+  exitDirection?: SwipeDirection;
+};
+
+const swipeRatingMap: Record<SwipeDirection, { rating: Rating; label: string; className: string }> = {
+  left: { rating: 'again', label: 'Again', className: 'again' },
+  up: { rating: 'hard', label: 'Hard', className: 'hard' },
+  down: { rating: 'good', label: 'Good', className: 'good' },
+  right: { rating: 'easy', label: 'Easy', className: 'easy' },
+};
+
+const swipeThreshold = 72;
+const swipeExitDistance = 520;
+
+function getSwipeDirection(deltaX: number, deltaY: number): SwipeDirection {
+  return Math.abs(deltaX) >= Math.abs(deltaY) ? (deltaX < 0 ? 'left' : 'right') : deltaY < 0 ? 'up' : 'down';
+}
+
+function clampSwipeOffset(value: number) {
+  return Math.max(-140, Math.min(140, value));
+}
+
 export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo }: StudyScreenProps) {
   const [direction, setDirection] = useState<StudyDirection>(snapshot.settings.defaultDirection);
   const [deckScope, setDeckScope] = useState<'active' | string>('active');
@@ -45,6 +78,18 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
   const [sessionReviews, setSessionReviews] = useState(0);
   const [buriedMixedNoteIds, setBuriedMixedNoteIds] = useState<Set<string>>(() => new Set());
   const [startedAt, setStartedAt] = useState(() => performance.now());
+  const [swipeState, setSwipeState] = useState<SwipeState>({
+    startX: 0,
+    startY: 0,
+    currentX: 0,
+    currentY: 0,
+    startedAt: 0,
+    isDragging: false,
+    isExiting: false,
+  });
+  const interactionMode = snapshot.settings.studyInteractionMode;
+  const useFixedControls = interactionMode === 'fixed-buttons';
+  const useSwipeMode = interactionMode === 'swipe';
 
   const queue = useMemo(
     () =>
@@ -63,6 +108,15 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
   useEffect(() => {
     setRevealed(false);
     setStartedAt(performance.now());
+    setSwipeState({
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      currentY: 0,
+      startedAt: 0,
+      isDragging: false,
+      isExiting: false,
+    });
   }, [current?.card.id, current?.direction]);
 
   useEffect(() => {
@@ -70,7 +124,7 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
   }, [deckScope, direction]);
 
   function revealCurrentCard() {
-    if (!revealed) {
+    if (!revealed && !swipeState.isDragging && !swipeState.isExiting) {
       setRevealed(true);
     }
   }
@@ -92,6 +146,15 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
     }
     setSessionReviews((count) => count + 1);
     setRevealed(false);
+    setSwipeState({
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      currentY: 0,
+      startedAt: 0,
+      isDragging: false,
+      isExiting: false,
+    });
   }
 
   async function handleUndo() {
@@ -99,12 +162,156 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
     setBuriedMixedNoteIds(new Set());
     setSessionReviews((count) => Math.max(0, count - 1));
     setRevealed(false);
+    setSwipeState({
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      currentY: 0,
+      startedAt: 0,
+      isDragging: false,
+      isExiting: false,
+    });
   }
 
+  function handleSwipePointerDown(event: PointerEvent<HTMLElement>) {
+    if (!useSwipeMode || !current || swipeState.isExiting) {
+      return;
+    }
+
+    event.currentTarget.setPointerCapture(event.pointerId);
+    setSwipeState({
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      currentX: event.clientX,
+      currentY: event.clientY,
+      startedAt: performance.now(),
+      isDragging: true,
+      isExiting: false,
+    });
+  }
+
+  function handleSwipePointerMove(event: PointerEvent<HTMLElement>) {
+    if (!useSwipeMode || !swipeState.isDragging || swipeState.pointerId !== event.pointerId) {
+      return;
+    }
+
+    setSwipeState((state) => ({
+      ...state,
+      currentX: event.clientX,
+      currentY: event.clientY,
+    }));
+  }
+
+  function resetSwipeState() {
+    setSwipeState({
+      startX: 0,
+      startY: 0,
+      currentX: 0,
+      currentY: 0,
+      startedAt: 0,
+      isDragging: false,
+      isExiting: false,
+    });
+  }
+
+  function handleSwipePointerEnd(event: PointerEvent<HTMLElement>) {
+    if (!useSwipeMode || !swipeState.isDragging || swipeState.pointerId !== event.pointerId) {
+      return;
+    }
+
+    const deltaX = event.clientX - swipeState.startX;
+    const deltaY = event.clientY - swipeState.startY;
+    const distance = Math.hypot(deltaX, deltaY);
+
+    if (!revealed) {
+      if (distance < 12) {
+        setRevealed(true);
+      }
+      resetSwipeState();
+      return;
+    }
+
+    if (distance < swipeThreshold) {
+      resetSwipeState();
+      return;
+    }
+
+    const swipeDirection = getSwipeDirection(deltaX, deltaY);
+    const { rating } = swipeRatingMap[swipeDirection];
+    setSwipeState((state) => ({
+      ...state,
+      currentX: event.clientX,
+      currentY: event.clientY,
+      isDragging: false,
+      isExiting: true,
+      exitDirection: swipeDirection,
+    }));
+    window.setTimeout(() => {
+      void handleGrade(rating);
+    }, 170);
+  }
+
+  function handleSwipePointerCancel() {
+    if (!useSwipeMode) {
+      return;
+    }
+    resetSwipeState();
+  }
+
+  const swipeDeltaX = swipeState.currentX - swipeState.startX;
+  const swipeDeltaY = swipeState.currentY - swipeState.startY;
+  const swipeDistance = Math.hypot(swipeDeltaX, swipeDeltaY);
+  const activeSwipeDirection = swipeDistance >= 18 ? getSwipeDirection(swipeDeltaX, swipeDeltaY) : undefined;
+  const activeSwipeRating = activeSwipeDirection ? swipeRatingMap[activeSwipeDirection] : undefined;
+  const clampedSwipeX = swipeState.isExiting
+    ? swipeState.exitDirection === 'left'
+      ? -swipeExitDistance
+      : swipeState.exitDirection === 'right'
+        ? swipeExitDistance
+        : 0
+    : clampSwipeOffset(swipeDeltaX);
+  const clampedSwipeY = swipeState.isExiting
+    ? swipeState.exitDirection === 'up'
+      ? -swipeExitDistance
+      : swipeState.exitDirection === 'down'
+        ? swipeExitDistance
+        : 0
+    : clampSwipeOffset(swipeDeltaY);
+  const swipeRotation = Math.max(-9, Math.min(9, clampedSwipeX / 18));
+  const swipeProgress = Math.min(1, swipeDistance / swipeThreshold);
+  const swipeCardStyle = useSwipeMode
+    ? ({
+        '--swipe-x': `${clampedSwipeX}px`,
+        '--swipe-y': `${clampedSwipeY}px`,
+        '--swipe-rotate': `${swipeRotation}deg`,
+        '--swipe-progress': swipeProgress,
+      } as CSSProperties)
+    : undefined;
+
   const activeDecks = deckLibrary.filter((deck) => activeDeckIds.includes(deck.id));
+  const showPromptAudio = current?.direction === 'nl-en' && (!useSwipeMode || !revealed);
+  const showAnswerAudio = current?.direction === 'en-nl' && (!useSwipeMode || revealed);
+  const actionControls = !current ? null : !revealed ? (
+    <button className="reveal-button" type="button" onClick={() => setRevealed(true)}>
+      Reveal answer
+    </button>
+  ) : (
+    <div className="rating-grid">
+      {ratingButtons.map((button) => (
+        <Button key={button.rating} tone={button.tone} onClick={() => void handleGrade(button.rating)}>
+          {button.label === 'Again' ? <RotateCcw size={17} /> : null}
+          {button.label}
+        </Button>
+      ))}
+    </div>
+  );
 
   return (
-    <main className="screen study-screen">
+    <main
+      className={`screen study-screen${useFixedControls ? ' study-screen--fixed-actions' : ''}`}
+      data-interaction-mode={interactionMode}
+    >
       <SectionHeader
         eyebrow="Recall"
         title="Study"
@@ -158,16 +365,42 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
           aria-live="polite"
           className="study-card"
           data-clickable={!revealed}
-          onClick={revealCurrentCard}
+          data-revealed={revealed}
+          data-swipe-active={useSwipeMode && (swipeState.isDragging || swipeState.isExiting)}
+          data-swipe-mode={useSwipeMode}
+          data-swipe-rating={activeSwipeRating?.className}
+          style={swipeCardStyle}
+          onClick={useSwipeMode ? undefined : revealCurrentCard}
+          onPointerCancel={handleSwipePointerCancel}
+          onPointerDown={handleSwipePointerDown}
+          onPointerMove={handleSwipePointerMove}
+          onPointerUp={handleSwipePointerEnd}
         >
-          <div className="study-card__meta">
-            <span>{current.card.deckShortTitle}</span>
-            <span>{current.direction === 'nl-en' ? 'Dutch -> English' : 'English -> Dutch'}</span>
-          </div>
+          {!useSwipeMode ? (
+            <div className="study-card__meta">
+              <span>{current.card.deckShortTitle}</span>
+              <span>{current.direction === 'nl-en' ? 'Dutch -> English' : 'English -> Dutch'}</span>
+            </div>
+          ) : null}
+
+          {useSwipeMode && activeSwipeRating ? (
+            <div className="swipe-feedback" aria-hidden="true">
+              {activeSwipeRating.label}
+            </div>
+          ) : null}
+
+          {useSwipeMode && revealed && activeSwipeRating ? (
+            <div className="swipe-labels" aria-hidden="true">
+              <span className="swipe-label swipe-label--left">Again</span>
+              <span className="swipe-label swipe-label--up">Hard</span>
+              <span className="swipe-label swipe-label--right">Easy</span>
+              <span className="swipe-label swipe-label--down">Good</span>
+            </div>
+          ) : null}
 
           <div className="study-card__prompt">
             <p>{getPrompt(current)}</p>
-            {current.direction === 'nl-en' ? (
+            {showPromptAudio ? (
               <button
                 aria-label="Speak Dutch prompt"
                 className="icon-button"
@@ -186,7 +419,7 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
             <div className="study-card__answer">
               <span>Answer</span>
               <p>{getAnswer(current)}</p>
-              {current.direction === 'en-nl' ? (
+              {showAnswerAudio ? (
                 <button
                   aria-label="Speak Dutch answer"
                   className="icon-button"
@@ -211,24 +444,13 @@ export function StudyScreen({ snapshot, activeDeckIds, stateMap, onGrade, onUndo
               ) : null}
               {current.card.notes ? <small>{current.card.notes}</small> : null}
             </div>
-          ) : (
-            <button className="reveal-button" type="button" onClick={() => setRevealed(true)}>
-              Reveal answer
-            </button>
-          )}
-
-          {revealed ? (
-            <div className="rating-grid">
-              {ratingButtons.map((button) => (
-                <Button key={button.rating} tone={button.tone} onClick={() => void handleGrade(button.rating)}>
-                  {button.label === 'Again' ? <RotateCcw size={17} /> : null}
-                  {button.label}
-                </Button>
-              ))}
-            </div>
           ) : null}
+
+          {!useFixedControls && !useSwipeMode ? actionControls : null}
         </section>
       )}
+
+      {useFixedControls && actionControls ? <div className="study-action-dock">{actionControls}</div> : null}
     </main>
   );
 }
