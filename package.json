@@ -1,6 +1,6 @@
 {
   "name": "gracht.app",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,7 +9,9 @@
     "preview": "vite preview --host 0.0.0.0",
     "typecheck": "tsc -b",
     "lint": "eslint .",
-    "validate:decks": "tsx scripts/validate-decks.ts"
+    "validate:decks": "tsx scripts/validate-decks.ts",
+    "validate:practice": "tsx scripts/validate-practice.ts",
+    "test:practice": "tsx scripts/test-practice.ts"
   },
   "keywords": [
     "dutch",
@@ -18,7 +20,7 @@
   ],
   "author": "",
   "license": "UNLICENSED",
-  "description": "Mobile-first local Dutch A0-A1 flashcard PWA.",
+  "description": "Personal Dutch practice from teacher lesson notes, with local progress and offline support.",
   "dependencies": {
     "@fontsource/geist": "^5.2.9",
     "@fontsource/geist-mono": "^5.2.8",

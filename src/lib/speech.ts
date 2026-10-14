@@ -1,6 +1,6 @@
-export function speakDutch(text: string, voiceURI?: string) {
+export function speakDutch(text: string, voiceURI?: string, onError?: () => void) {
   if (!('speechSynthesis' in window)) {
-    return;
+    return false;
   }
 
   window.speechSynthesis.cancel();
@@ -17,5 +17,10 @@ export function speakDutch(text: string, voiceURI?: string) {
     utterance.voice = selectedVoice;
   }
 
+  utterance.onerror = (event) => {
+    if (event.error !== 'interrupted' && event.error !== 'canceled') onError?.();
+  };
+
   window.speechSynthesis.speak(utterance);
+  return true;
 }

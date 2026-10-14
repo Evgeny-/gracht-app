@@ -24,6 +24,12 @@ jobs:
       - name: Validate decks
         run: npm run validate:decks
 
+      - name: Validate lesson material
+        run: npm run validate:practice
+
+      - name: Test practice scheduling
+        run: npm run test:practice
+
       - name: Lint
         run: npm run lint
 

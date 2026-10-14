@@ -23,7 +23,7 @@ export default defineConfig({
       manifest: {
         name: 'gracht.app',
         short_name: 'gracht',
-        description: 'Local-first Dutch A0-A1 flashcard trainer.',
+        description: 'Daily Dutch practice from your lessons.',
         theme_color: '#07162f',
         background_color: '#07162f',
         display: 'standalone',
@@ -59,7 +59,7 @@ export default defineConfig({
       },
       workbox: {
         navigateFallback: `${appBase}index.html`,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,webmanifest,woff,woff2}']
       },
       devOptions: {
         enabled: true
