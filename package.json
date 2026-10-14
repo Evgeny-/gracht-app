@@ -15,12 +15,13 @@
   },
   "keywords": [
     "dutch",
-    "flashcards",
+    "language-learning",
+    "spaced-repetition",
     "pwa"
   ],
   "author": "",
   "license": "UNLICENSED",
-  "description": "Personal Dutch practice from teacher lesson notes, with local progress and offline support.",
+  "description": "Daily Dutch practice built from lesson notes, with varied exercises and spaced review. Works offline and keeps progress on your device.",
   "dependencies": {
     "@fontsource/geist": "^5.2.9",
     "@fontsource/geist-mono": "^5.2.8",

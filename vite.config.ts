@@ -21,9 +21,9 @@ export default defineConfig({
         'maskable-512.png'
       ],
       manifest: {
-        name: 'gracht.app',
+        name: 'gracht.app | Daily Dutch practice',
         short_name: 'gracht',
-        description: 'Daily Dutch practice from your lessons.',
+        description: 'Daily Dutch practice built from lesson notes, with varied exercises and spaced review. Works offline and keeps progress on your device.',
         theme_color: '#07162f',
         background_color: '#07162f',
         display: 'standalone',
