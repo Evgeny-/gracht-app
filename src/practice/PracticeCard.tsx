@@ -35,8 +35,11 @@ export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps
   const [reference, setReference] = useState(0);
   const [audioError, setAudioError] = useState('');
   const KindIcon = kindIcons[item.kind];
+  const label = item.label ?? kindLabels[item.kind];
   const recallHint = item.kind === 'recall'
-    ? item.prompt.replace(/^(?:How do you say [^?]+\?|Say [^.]+\.)\s*(?:Then\s+)?/u, '').replace(/^./u, (letter) => letter.toUpperCase())
+    ? item.verbId
+      ? item.prompt === item.title ? '' : item.prompt
+      : item.prompt.replace(/^(?:How do you say [^?]+\?|Say [^.]+\.)\s*(?:Then\s+)?/u, '').replace(/^./u, (letter) => letter.toUpperCase())
     : '';
   const assembled = chosen.map((index) => item.tokens?.[index]).join(' ');
   const matches = [item.answer, ...(item.acceptedAnswers ?? [])].some((answer) => normalize(answer) === normalize(assembled));
@@ -48,13 +51,13 @@ export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps
   }
 
   return (
-    <article className={`practice-card practice-card--${item.kind}`} aria-label={kindLabels[item.kind]}>
+    <article className={`practice-card practice-card--${item.kind}`} aria-label={label}>
       <div className="practice-card__top">
-        <div className="practice-kind"><span className="practice-kind__icon"><KindIcon size={17} strokeWidth={2} /></span>{kindLabels[item.kind]}</div>
+        <div className="practice-kind"><span className="practice-kind__icon"><KindIcon size={17} strokeWidth={2} /></span>{label}</div>
       </div>
 
       <div className="practice-prompt">
-        <h2>{item.kind === 'recall' ? item.title : item.prompt}</h2>
+        <h2 lang={item.promptLanguage}>{item.kind === 'recall' ? item.title : item.prompt}</h2>
         {recallHint ? <p className="practice-task-description">{recallHint}</p> : null}
       </div>
 
@@ -73,7 +76,12 @@ export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps
         <div className="practice-answer" aria-live="polite">
           <AnswerContent item={item} action={<button type="button" className="practice-listen" onClick={listen} aria-label="Listen to the Dutch example"><Volume2 size={18} /></button>} />
           {item.kind === 'build' && chosen.length > 0 ? <p className="practice-builder-feedback">{matches ? <><Check size={15} /> Your sentence works.</> : 'Compare your sentence with the example above.'}</p> : null}
-          {item.reference?.length ? (
+          {item.verbId && item.reference?.length ? (
+            <details className="verb-question-reference">
+              <summary>All forms</summary>
+              <dl>{item.reference.map((variant) => <div key={variant.label}><dt>{variant.label}</dt><dd lang="nl">{variant.dutch}</dd></div>)}</dl>
+            </details>
+          ) : item.reference?.length ? (
             <div className="verb-reference">
               <div className="verb-reference__tabs" aria-label="Explore the forms">{item.reference.map((variant, index) => <button key={variant.label} type="button" aria-pressed={reference === index} onClick={() => setReference(index)}>{variant.label}</button>)}</div>
               <p lang="nl">{item.reference[reference].dutch}</p>

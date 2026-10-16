@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "validate:decks": "tsx scripts/validate-decks.ts",
     "validate:practice": "tsx scripts/validate-practice.ts",
-    "test:practice": "tsx scripts/test-practice.ts"
+    "test:practice": "tsx scripts/test-practice.ts",
+    "test:verbs": "tsx scripts/test-verbs.ts"
   },
   "keywords": [
     "dutch",

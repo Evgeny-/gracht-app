@@ -30,6 +30,9 @@ jobs:
       - name: Test practice scheduling
         run: npm run test:practice
 
+      - name: Check verb practice
+        run: npm run test:verbs
+
       - name: Lint
         run: npm run lint
 

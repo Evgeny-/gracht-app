@@ -2,7 +2,7 @@ import { ArrowLeft, ArrowRight, BookOpen, Check, RotateCcw } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '../components/Button';
-import { lessons, practiceItems } from './library';
+import { lessons, practiceItems as lessonItems } from './library';
 import { PracticeCard } from './PracticeCard';
 import { buildPracticeQueue, buildScopedPracticeQueue } from './scheduler';
 import type { PracticeItem, PracticeRating, PracticeScope, PracticeState } from './types';
@@ -12,28 +12,39 @@ type Props = {
   busy: boolean;
   voiceURI?: string;
   onRate: (item: PracticeItem, rating: PracticeRating) => Promise<void>;
-  onUndo: () => Promise<PracticeItem | undefined>;
+  onUndo: (expectedItemId?: string) => Promise<PracticeItem | undefined>;
   onMaterial: () => void;
   onDaily: () => void;
   scope?: PracticeScope;
+  items?: PracticeItem[];
+  queueBuilder?: (states: PracticeState[], scope?: PracticeScope, completedIds?: string[], now?: Date) => PracticeItem[];
+  title?: string;
+  backLabel?: string;
+  materialLabel?: string;
 };
 
 function localDay(date = new Date()) {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
-export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMaterial, onDaily, scope }: Props) {
-  const [session, setSession] = useState(() => ({ queue: scope ? buildScopedPracticeQueue(practiceItems, states, lessons, scope) : buildPracticeQueue(practiceItems, states, lessons), index: 0, ratings: [] as PracticeRating[], day: localDay(), scope, completedIds: [] as string[] }));
+export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMaterial, onDaily, scope, items = lessonItems, queueBuilder, title = 'Today’s practice', backLabel, materialLabel = 'My material' }: Props) {
+  function buildQueue(currentStates: PracticeState[], currentScope?: PracticeScope, completedIds: string[] = [], now = new Date()) {
+    if (queueBuilder) return queueBuilder(currentStates, currentScope, completedIds, now);
+    return currentScope
+      ? buildScopedPracticeQueue(items, currentStates, lessons, currentScope, completedIds, now)
+      : buildPracticeQueue(items, currentStates, lessons, now);
+  }
+  const [session, setSession] = useState(() => ({ queue: buildQueue(states, scope), index: 0, ratings: [] as PracticeRating[], day: localDay(), scope, completedIds: [] as string[] }));
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const lock = useRef(false);
   const latestStates = useRef(states);
   latestStates.current = states;
+  const latestQueueBuilder = useRef(buildQueue);
+  latestQueueBuilder.current = buildQueue;
   const sessionDay = useRef(session.day);
   const item = session.queue[session.index];
-  const remaining = session.scope
-    ? buildScopedPracticeQueue(practiceItems, states, lessons, session.scope, session.completedIds)
-    : buildPracticeQueue(practiceItems, states, lessons);
+  const remaining = buildQueue(states, session.scope, session.completedIds);
   const completed = session.index;
 
   useEffect(() => {
@@ -49,7 +60,7 @@ export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMater
           return;
         }
         sessionDay.current = day;
-        setSession({ queue: buildPracticeQueue(practiceItems, latestStates.current, lessons, now), index: 0, ratings: [], day, scope: undefined, completedIds: [] });
+        setSession({ queue: latestQueueBuilder.current(latestStates.current, undefined, [], now), index: 0, ratings: [], day, scope: undefined, completedIds: [] });
         setMessage('');
         setError('');
       }
@@ -77,7 +88,7 @@ export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMater
       await onRate(item, rating);
       setSession((current) => ({ ...current, index: current.index + 1, ratings: [...current.ratings, rating], completedIds: current.scope ? [...current.completedIds, item.id] : current.completedIds }));
       window.scrollTo({ top: 0 });
-      setMessage(rating === 'again' ? 'Saved. This will come back tomorrow.' : rating === 'retire' ? 'Retired. You can bring it back from My material.' : 'Saved. You’ll see this again in a few days.');
+      setMessage(rating === 'again' ? 'Saved. This will come back tomorrow.' : rating === 'retire' ? `Retired. You can bring it back from ${materialLabel}.` : 'Saved. You’ll see this again in a few days.');
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : 'Couldn’t save this attempt. Please try again.');
     } finally {
@@ -87,10 +98,12 @@ export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMater
 
   async function undo() {
     if (lock.current || busy) return;
+    const expectedItem = session.queue[session.index - 1];
+    if (!expectedItem) return;
     lock.current = true;
     setError('');
     try {
-      const restored = await onUndo();
+      const restored = await onUndo(expectedItem.id);
       if (restored) {
         setSession((current) => current.queue[current.index - 1]?.id === restored.id
           ? { ...current, index: current.index - 1, ratings: current.ratings.slice(0, -1), completedIds: current.completedIds.filter((id) => id !== restored.id) }
@@ -108,7 +121,7 @@ export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMater
     const activeScope = day === session.day ? session.scope : undefined;
     const completedIds = activeScope ? session.completedIds : [];
     sessionDay.current = day;
-    setSession({ queue: activeScope ? buildScopedPracticeQueue(practiceItems, states, lessons, activeScope, completedIds) : buildPracticeQueue(practiceItems, states, lessons), index: 0, ratings: [], day, scope: activeScope, completedIds });
+    setSession({ queue: buildQueue(states, activeScope, completedIds), index: 0, ratings: [], day, scope: activeScope, completedIds });
     setMessage('');
     setError('');
     window.scrollTo({ top: 0 });
@@ -116,7 +129,7 @@ export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMater
 
   return (
     <main className="daily-practice">
-      <header className="practice-heading"><div>{session.scope ? <button type="button" className="practice-text-button" onClick={onDaily} disabled={busy}><ArrowLeft size={14} />Return to daily</button> : null}<h1>{session.scope?.title ?? 'Today’s practice'}</h1></div>{session.queue.length > 0 ? <div className="practice-session-count"><strong>{Math.min(completed + (item ? 1 : 0), session.queue.length)}</strong><span> / {session.queue.length}</span></div> : null}</header>
+      <header className="practice-heading"><div>{session.scope || backLabel !== undefined ? <button type="button" className="practice-text-button" onClick={onDaily} disabled={busy}><ArrowLeft size={14} />{backLabel ?? 'Return to daily'}</button> : null}<h1>{session.scope?.title ?? title}</h1></div>{session.queue.length > 0 ? <div className="practice-session-count"><strong>{Math.min(completed + (item ? 1 : 0), session.queue.length)}</strong><span> / {session.queue.length}</span></div> : null}</header>
       {session.queue.length > 0 ? <div className="practice-progress" role="progressbar" aria-label="Session progress" aria-valuemin={0} aria-valuemax={session.queue.length} aria-valuenow={completed}>{session.queue.map((entry, index) => <span key={`${entry.id}-${index}`} data-complete={index < completed} data-current={index === completed} />)}</div> : null}
 
       {item ? <PracticeCard key={`${session.day}-${item.id}-${session.index}`} item={item} voiceURI={voiceURI} busy={busy} onRate={rate} /> : (
@@ -125,7 +138,7 @@ export function PracticeScreen({ states, busy, voiceURI, onRate, onUndo, onMater
           <h2>{completed ? 'Practice complete.' : session.scope ? 'Nothing to practise here.' : 'You’re all caught up.'}</h2>
           <p>{completed} {completed === 1 ? 'exercise' : 'exercises'} practised.</p>
           {session.ratings.includes('again') ? <span className="practice-complete__note">{session.ratings.filter((rating) => rating === 'again').length} back tomorrow</span> : null}
-          <div className="practice-complete__actions">{remaining.length > 0 ? <Button tone="primary" size="lg" onClick={more}>Keep practising <ArrowRight size={18} /></Button> : null}<Button onClick={onMaterial}><BookOpen size={17} />My material</Button></div>
+          <div className="practice-complete__actions">{remaining.length > 0 ? <Button tone="primary" size="lg" onClick={more}>Keep practising <ArrowRight size={18} /></Button> : null}<Button onClick={onMaterial}><BookOpen size={17} />{materialLabel}</Button></div>
         </section>
       )}
 

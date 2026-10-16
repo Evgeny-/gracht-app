@@ -28,6 +28,16 @@ Group sessions include active exercises even when they are not due yet. They run
 
 ![Practice topics](docs/screenshots/practice-topics.png)
 
+## Irregular verbs
+
+The **Verbs** section starts with 24 useful verbs, beginning with `zijn`, `hebben` and `gaan`. Each verb has separate questions for meaning, recognising a past form, singular and plural past forms, the perfect, and building a sentence. Translation goes both ways between Dutch and English.
+
+Sessions contain up to eight questions. Due reviews come first, with missed questions given priority. Suggested practice introduces new questions from up to three verbs at a time. Choosing a group or an individual verb lets you practise its full set, including questions that are not yet due. The same ratings and backup support apply; retired verb questions can be restored from that verb’s details.
+
+**How the past works** compares simple past (OVT) with perfect (VTT), including plural forms and contextual examples of `hebben` and `zijn`. Verb forms and authored examples live in `src/verbs/library.ts`, separately from the teacher’s notes. Grammar references are [Taaladvies on past tenses](https://taaladvies.net/werkwoordstijden-die-iets-over-het-verleden-zeggen-voltooide-versus-onvoltooide-tijden-algemeen/), [Taaladvies on hebben and zijn](https://taaladvies.net/vorming-van-voltooide-tijden-met-hebben-of-zijn-algemeen/), and the [Algemeen Nederlands Woordenboek](https://anw.ivdnt.org/).
+
+![Irregular verb practice](docs/screenshots/irregular-verbs.png)
+
 ## Updating lesson material
 
 Content lives in `src/practice/library.ts`, including the teacher’s Google Doc link as `DOCUMENT_URL`. Weekly updates are prepared manually from the document when requested.
@@ -68,6 +78,7 @@ npm run lint
 npm run validate:practice
 npm run validate:decks
 npm run test:practice
+npm run test:verbs
 npm run build
 ```
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { practiceItems } from './library';
+import { allPracticeItems } from './catalog';
 import {
   loadPracticeData,
   ratePracticeItem,
@@ -20,7 +20,7 @@ export function usePractice() {
 
   const refresh = useCallback(async () => {
     try {
-      const next = await loadPracticeData(practiceItems);
+      const next = await loadPracticeData(allPracticeItems);
       setSnapshot(next);
       setHasLoaded(true);
       setError(undefined);
@@ -56,9 +56,9 @@ export function usePractice() {
   const rate = useCallback((item: PracticeItem, rating: PracticeRating) =>
     mutate(() => ratePracticeItem(item, rating)), [mutate]);
 
-  const undo = useCallback(() => mutate(async () => {
-    const itemId = await undoPracticeReview();
-    return practiceItems.find((item) => item.id === itemId);
+  const undo = useCallback((expectedItemId?: string) => mutate(async () => {
+    const itemId = await undoPracticeReview(expectedItemId);
+    return allPracticeItems.find((item) => item.id === itemId);
   }), [mutate]);
 
   const restore = useCallback((item: PracticeItem) =>

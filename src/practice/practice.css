@@ -192,12 +192,13 @@
   .material-group-toggle small { font-size: 11px; }
   .material-group-practise { padding: 9px 10px; }
   .practice-shell { padding: 0 18px 32px; }
-  .practice-header { min-height: 88px; gap: 10px; flex-wrap: wrap; padding-top: 18px; padding-bottom: 15px; }
+  .practice-header { min-height: 88px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 18px; padding-bottom: 0; }
   .practice-brand { font-size: 22px; gap: 8px; }
   .practice-brand img { width: 32px; height: 32px; border-radius: 9px; }
-  .practice-header__right { gap: 7px; }
-  .practice-navigation { padding: 3px; }
-  .practice-navigation button { font-size: 11px; padding: 9px 12px; min-height: 34px; }
+  .practice-header__right { justify-content: space-between; width: 100%; gap: 12px; }
+  .practice-navigation { padding: 3px; flex: 1; }
+  .practice-navigation button { flex: 1; font-size: 11px; padding: 9px 10px; min-height: 38px; }
+  .practice-header__right > .practice-icon-button { width: 40px; height: 40px; }
   .practice-icon-button { width: 34px; height: 34px; }
   .practice-main-content { margin-top: 24px; }
   .practice-heading { margin-bottom: 20px; gap: 13px; }

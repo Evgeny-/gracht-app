@@ -64,10 +64,13 @@ export function canUndoPracticeReview(state: PracticeState | undefined, review: 
 }
 
 /** Returns the item ID so the UI can put the undone item back into its session. */
-export async function undoPracticeReview(): Promise<string | undefined> {
+export async function undoPracticeReview(expectedItemId?: string): Promise<string | undefined> {
   return db.transaction('rw', db.practiceStates, db.practiceReviews, async () => {
     const review = await db.practiceReviews.orderBy('id').last();
     if (!review || review.id === undefined) return undefined;
+    if (expectedItemId !== undefined && review.itemId !== expectedItemId) {
+      throw new Error('Your latest answer belongs to another practice session. Return there to undo it.');
+    }
     const currentState = await db.practiceStates.get(review.itemId);
     if (!canUndoPracticeReview(currentState, review)) {
       throw new Error('That answer can’t be undone because its progress has since changed. Your current schedule was kept.');

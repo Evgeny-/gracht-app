@@ -18,6 +18,11 @@ export type PracticeItem = {
   lessonId: string;
   topicIds: string[];
   kind: PracticeKind;
+  label?: string;
+  promptLanguage?: 'nl' | 'en';
+  answerLanguage?: 'nl' | 'en';
+  verbId?: string;
+  verbTask?: 'meaning' | 'recognize' | 'past-singular' | 'past-plural' | 'perfect' | 'sentence';
   title: string;
   cue: string;
   prompt: string;
