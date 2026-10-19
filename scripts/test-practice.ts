@@ -107,10 +107,51 @@ assert.equal(buildPracticeQueue([revisedPhrase], [retired], lessons, now)[0].rev
 const realQueue = buildPracticeQueue(practiceItems, [], realLessons, now);
 assert.equal(realQueue.length, 8);
 assert.deepEqual([...new Set(realQueue.map((entry) => entry.kind))].sort(), ['build', 'contrast', 'recall', 'verb']);
+const realLessonOrder = new Map(realLessons.map((lesson) => [lesson.id, lesson.sortOrder]));
+for (const entry of realQueue.slice(0, 4)) {
+  const newestForKind = Math.max(...practiceItems.filter((candidate) => candidate.kind === entry.kind)
+    .map((candidate) => realLessonOrder.get(candidate.lessonId) ?? 0));
+  assert.equal(realLessonOrder.get(entry.lessonId), newestForKind, `First ${entry.kind} should come from its newest lesson`);
+}
 const severalMisses = pool.slice(0, 3).map((entry) =>
   schedulePracticeReview(entry, undefined, 'again', new Date(2026, 9, 23)));
 const missedQueue = buildPracticeQueue(pool, severalMisses, lessons, now);
 assert.deepEqual(new Set(missedQueue.slice(0, 3).map((entry) => entry.id)), new Set(pool.slice(0, 3).map((entry) => entry.id)));
+
+// The October refresh has no source date: its import order gives it priority.
+const refreshedLessonId = 'notes-2026-10-19';
+const refreshedLesson = realLessons.find((lesson) => lesson.id === refreshedLessonId);
+const earlierUndatedLesson = realLessons.find((lesson) => lesson.id === 'latest-additions');
+assert(refreshedLesson, 'Missing October lesson refresh');
+assert(earlierUndatedLesson, 'Keep the earlier undated lesson ID stable');
+assert.equal(refreshedLesson.date, null, 'The import date must not become a lesson date');
+assert(refreshedLesson.sortOrder > earlierUndatedLesson.sortOrder, 'New source additions must outrank earlier undated notes');
+const refreshedKinds = new Set(practiceItems.filter((entry) => entry.lessonId === refreshedLessonId).map((entry) => entry.kind));
+assert.deepEqual([...refreshedKinds].sort(), ['build', 'contrast', 'recall', 'verb']);
+// Limit this batch regression to its predecessors so later weekly imports can lead.
+const atRefreshLessonIds = new Set(realLessons.filter((lesson) => lesson.sortOrder <= refreshedLesson.sortOrder).map((lesson) => lesson.id));
+const atRefreshItems = practiceItems.filter((entry) => atRefreshLessonIds.has(entry.lessonId));
+const refreshedQueue = buildPracticeQueue(atRefreshItems, [], realLessons, now);
+for (const kind of refreshedKinds) {
+  assert.equal(refreshedQueue.find((entry) => entry.kind === kind)?.lessonId, refreshedLessonId,
+    `The newest ${kind} task should lead its kind`);
+}
+assert.deepEqual(buildPracticeQueue([...atRefreshItems].reverse(), [], [...realLessons].reverse(), now), refreshedQueue);
+
+// An older failed answer remains ahead of new material, without suppressing variety.
+const olderMisses = (['recall', 'build'] as const).map((kind) => {
+  const olderItem = atRefreshItems.find((entry) => entry.lessonId !== refreshedLessonId && entry.kind === kind);
+  assert(olderItem, `Missing older ${kind} task for priority regression`);
+  return olderItem;
+});
+const refreshedWithMisses = buildPracticeQueue(atRefreshItems, olderMisses.map((entry) =>
+  schedulePracticeReview(entry, undefined, 'again', new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1))), realLessons, now);
+assert.deepEqual(new Set(refreshedWithMisses.slice(0, olderMisses.length).map((entry) => entry.id)),
+  new Set(olderMisses.map((entry) => entry.id)), 'All due misses should precede the newest lesson');
+for (const kind of refreshedKinds) {
+  assert.equal(refreshedWithMisses.slice(olderMisses.length).find((entry) => entry.kind === kind)?.lessonId,
+    refreshedLessonId, `After due misses, the newest ${kind} task should lead its kind`);
+}
 
 // A selected lesson/topic includes future-due active exercises, never other items.
 const future = schedulePracticeReview(pool[1], undefined, 'good', now);

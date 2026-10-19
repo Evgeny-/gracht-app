@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
+  "normalization": "nfc-whitespace-v1",
+  "sourceHash": "sha256:d608ba8fad524cdb0f078913cb08bf76442a731eef57f3de6c75c58a9a1e87c4",
+  "paragraphCount": 582,
+  "reviewedOn": "2026-10-19",
+  "lastUpdate": {
+    "lessonIds": [
+      "notes-2026-10-19"
+    ],
+    "itemIds": [
+      "recall-op-bezoek",
+      "recall-horen",
+      "recall-reden",
+      "recall-hulp",
+      "recall-recept-prescription",
+      "recall-apotheker",
+      "contrast-zijn-z-n",
+      "contrast-hem-m",
+      "contrast-kwart-voor-over-vier",
+      "contrast-recept-medicijn",
+      "build-cancel-sick",
+      "build-visit-thursday",
+      "build-ask-arrival-time",
+      "build-train-delay",
+      "build-arrive-work",
+      "build-give-prescription",
+      "verb-aankomen-past-ik",
+      "verb-aankomen-completed-ik"
+    ],
+    "skippedNotes": [
+      "Exercise website link; no Dutch practice content."
+    ]
+  }
+}

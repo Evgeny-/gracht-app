@@ -12,7 +12,9 @@
     "validate:decks": "tsx scripts/validate-decks.ts",
     "validate:practice": "tsx scripts/validate-practice.ts",
     "test:practice": "tsx scripts/test-practice.ts",
-    "test:verbs": "tsx scripts/test-verbs.ts"
+    "test:verbs": "tsx scripts/test-verbs.ts",
+    "lesson:source": "tsx scripts/lesson-source.ts",
+    "test:lesson-source": "tsx scripts/test-lesson-source.ts"
   },
   "keywords": [
     "dutch",

@@ -33,6 +33,9 @@ jobs:
       - name: Check verb practice
         run: npm run test:verbs
 
+      - name: Check lesson source comparison
+        run: npm run test:lesson-source
+
       - name: Lint
         run: npm run lint
 

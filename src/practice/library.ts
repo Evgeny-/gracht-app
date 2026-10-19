@@ -22,11 +22,18 @@ export const topics: PracticeTopic[] = [
 // Higher sortOrder means more recent material. The document's last additions have no date.
 export const lessons: PracticeLesson[] = [
   {
+    id: 'notes-2026-10-19',
+    title: 'Visits, delays and getting help',
+    date: null,
+    sortOrder: 700,
+    description: 'Undated teacher notes imported on 19 October 2026.',
+  },
+  {
     id: 'latest-additions',
-    title: 'Latest additions',
+    title: 'Earlier undated notes',
     date: null,
     sortOrder: 600,
-    description: 'Undated words at the end of your teacher’s notes.',
+    description: 'Undated vocabulary after the 5 October lesson.',
   },
   {
     id: '2026-10-05',
@@ -84,7 +91,8 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
-  'latest-additions': 'Undated additions at the end of the document',
+  'notes-2026-10-19': 'Undated notes · imported 19 October 2026',
+  'latest-additions': 'Earlier undated notes',
   '2026-10-05': '5 October · teacher’s notes',
   '2026-09-30': '30 September · teacher’s notes',
   '2026-09-28': '28 September · teacher’s notes',
@@ -240,6 +248,166 @@ function verbPair(content: {
     reference,
   }));
 }
+
+const importedPracticeItems: PracticeItem[] = [
+  vocabulary({
+    id: 'recall-op-bezoek', lessonId: 'notes-2026-10-19', topicIds: ['plans', 'conversation', 'prepositions'],
+    title: 'To visit someone', word: 'op bezoek gaan',
+    prompt: 'Use op bezoek to say that you are going to visit her.',
+    dutch: 'Ik ga bij haar op bezoek.', english: 'I am going to visit her.',
+    explanation: 'Bij tells you who you are visiting: bij haar op bezoek gaan.',
+    quote: 'Op bezoek = to visit', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-horen', lessonId: 'notes-2026-10-19', topicIds: ['conversation'],
+    title: 'To hear', word: 'horen', prompt: 'Say “to hear”, then “I can’t hear you”.',
+    dutch: 'Ik hoor je niet.', english: 'I cannot hear you.',
+    explanation: 'Ik hoor je niet is a natural way to say you cannot hear someone.',
+    quote: 'Horen = to hear', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-reden', lessonId: 'notes-2026-10-19', topicIds: ['conversation', 'pronouns-articles'],
+    title: 'The reason', word: 'de reden', prompt: 'Say “the reason”, then ask “What is the reason?”',
+    dutch: 'Wat is de reden?', english: 'What is the reason?',
+    explanation: 'Reden is a de-word: de reden.',
+    quote: 'De reden = the reason', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-hulp', lessonId: 'notes-2026-10-19', topicIds: ['conversation', 'daily-life'],
+    title: 'Help', word: 'de hulp',
+    prompt: 'Give the Dutch noun for “help”, including its article. Then say that you need help.',
+    dutch: 'Ik heb hulp nodig.', english: 'I need help.',
+    explanation: 'In ik heb hulp nodig, hulp is used without an article.',
+    quote: 'De hulp = the help', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-recept-prescription', lessonId: 'notes-2026-10-19', topicIds: ['daily-life', 'pronouns-articles'],
+    title: 'The prescription', word: 'het recept',
+    prompt: 'At the pharmacy, how do you say “the prescription”? Then say that you have a prescription.',
+    dutch: 'Ik heb een recept.', english: 'I have a prescription.',
+    explanation: 'In a pharmacy, het recept means the prescription. In cooking, it means the recipe.',
+    quote: 'Roos geeft het recept aan apotheker.', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-apotheker', lessonId: 'notes-2026-10-19', topicIds: ['daily-life', 'pronouns-articles'],
+    title: 'The pharmacist', word: 'de apotheker',
+    prompt: 'Say “the pharmacist”, including the article. Then say that the pharmacist gives you the medicine.',
+    dutch: 'De apotheker geeft mij het medicijn.', english: 'The pharmacist gives me the medicine.',
+    explanation: 'De apotheker is the person; de apotheek is the pharmacy.',
+    quote: 'De apotheker geeft het medicijn aan de cliënt.', adapted: true,
+  }),
+  contrast({
+    id: 'contrast-zijn-z-n', lessonId: 'notes-2026-10-19', topicIds: ['pronouns-articles', 'conversation'],
+    title: 'Z’n or zijn', prompt: 'In “Z’n afspraak is morgen”, what does z’n stand for? Say the sentence with the full form.',
+    answer: 'Zijn afspraak is morgen.',
+    explanation: 'Z’n is the unstressed form of the possessive zijn, meaning his here.',
+    dutch: 'Zijn afspraak is morgen.', english: 'His appointment is tomorrow.',
+    quote: 'Z’n = Zijn', adapted: true,
+  }),
+  contrast({
+    id: 'contrast-hem-m', lessonId: 'notes-2026-10-19', topicIds: ['pronouns-articles', 'conversation'],
+    title: '’m or hem', prompt: 'In “Ik hoor ’m”, what does ’m stand for? Say the full sentence and its meaning.',
+    answer: 'Ik hoor hem. · I hear him.',
+    explanation: '’m is the unstressed form of hem. Here, hem refers to the person you hear.',
+    dutch: 'Ik hoor hem.', english: 'I hear him.',
+    quote: '‘M = hem', adapted: true,
+  }),
+  contrast({
+    id: 'contrast-kwart-voor-over-vier', lessonId: 'notes-2026-10-19', topicIds: ['plans', 'word-choice'],
+    title: 'A quarter to or past four', prompt: 'Say 15:45 and 16:15 in words, using kwart. What changes?',
+    answer: 'kwart voor vier / kwart over vier',
+    explanation: 'Voor means before the next hour; over means past the hour. Kwart voor vier is 3:45.',
+    dutch: 'Ik kom om kwart voor vier.', english: 'I will come at a quarter to four.',
+    quote: 'om kwart voor vier', adapted: true,
+  }),
+  contrast({
+    id: 'contrast-recept-medicijn', lessonId: 'notes-2026-10-19', topicIds: ['daily-life', 'word-choice', 'pronouns-articles'],
+    title: 'Prescription or medicine', prompt: 'What is the difference between het recept and het medicijn at a pharmacy?',
+    answer: 'het recept = the prescription / het medicijn = the medicine',
+    explanation: 'The prescription tells the pharmacist which medicine was prescribed.',
+    dutch: 'Ik geef het recept aan de apotheker en krijg het medicijn.',
+    english: 'I give the prescription to the pharmacist and receive the medicine.',
+    quote: 'De apotheker geeft het medicijn aan de cliënt.', adapted: true,
+  }),
+  sentence({
+    id: 'build-cancel-sick', lessonId: 'notes-2026-10-19', topicIds: ['plans', 'conversation', 'word-order'],
+    title: 'Cancel because you are ill',
+    dutch: 'Ik kan morgen niet komen, want ik ben ziek.', english: 'I cannot come tomorrow because I am ill.',
+    prompt: 'I cannot come tomorrow because I am ill. Use want.',
+    explanation: 'After want, the subject ik comes before ben.',
+    quote: 'Ik kan morgen niet komen want ik ben ziek.', adapted: true,
+    tokens: ['Ik', 'kan', 'morgen', 'niet komen,', 'want', 'ik ben ziek.'],
+    acceptedAnswers: ['Ik kan morgen niet komen, want ik ben ziek.', 'Morgen kan ik niet komen, want ik ben ziek.'],
+  }),
+  sentence({
+    id: 'build-visit-thursday', lessonId: 'notes-2026-10-19', topicIds: ['plans', 'conversation', 'word-order'],
+    title: 'Arrange a visit',
+    dutch: 'Misschien kan ik u op donderdag om kwart voor vier bezoeken.',
+    english: 'Perhaps I can visit you on Thursday at 3:45 p.m.',
+    prompt: 'Perhaps I can visit you on Thursday at 3:45 p.m. Use u.',
+    explanation: 'Kwart voor vier means a quarter to four. U is the formal form of you.',
+    quote: 'Misschien kan ik u op donderdag om kwart voor vier bezoeken.',
+    tokens: ['Misschien', 'kan', 'ik u', 'op donderdag', 'om kwart voor vier', 'bezoeken.'],
+    acceptedAnswers: [
+      'Misschien kan ik u op donderdag om kwart voor vier bezoeken.',
+      'Op donderdag kan ik u misschien om kwart voor vier bezoeken.',
+    ],
+  }),
+  sentence({
+    id: 'build-ask-arrival-time', lessonId: 'notes-2026-10-19', topicIds: ['plans', 'conversation', 'travel'],
+    title: 'Ask when someone will arrive', dutch: 'Hoe laat kom je hier?', english: 'What time will you be here?',
+    explanation: 'Hoe laat asks for a clock time.', quote: 'Hoe laat kom je hier?',
+    tokens: ['Hoe laat', 'kom', 'je', 'hier?'],
+  }),
+  sentence({
+    id: 'build-train-delay', lessonId: 'notes-2026-10-19', topicIds: ['travel', 'conversation', 'word-order'],
+    title: 'Explain a delay',
+    dutch: 'Ik ben vandaag later, want de trein had vertraging.',
+    english: 'I will be later today because the train was delayed.',
+    prompt: 'I will be later today because the train was delayed. Use want.',
+    explanation: 'De trein had vertraging means the train was delayed.',
+    quote: 'Ik ben vandaag later, want de trein had een vertraging.', adapted: true,
+    tokens: ['Ik', 'ben', 'vandaag', 'later,', 'want', 'de trein had vertraging.'],
+    acceptedAnswers: ['Ik ben vandaag later, want de trein had vertraging.', 'Vandaag ben ik later, want de trein had vertraging.'],
+  }),
+  sentence({
+    id: 'build-arrive-work', lessonId: 'notes-2026-10-19', topicIds: ['work', 'travel', 'separable-verbs', 'word-order'],
+    title: 'Give your arrival time',
+    dutch: 'Ik kom om twaalf uur op het werk aan.', english: 'I will arrive at work at twelve.',
+    explanation: 'Aankomen separates into kom … aan. Op het werk means at work.',
+    quote: 'Ik kom om 12 uur op werk aan.', adapted: true,
+    tokens: ['Ik', 'kom', 'om twaalf uur', 'op het werk', 'aan.'],
+    acceptedAnswers: [
+      'Ik kom om twaalf uur op het werk aan.',
+      'Om twaalf uur kom ik op het werk aan.',
+      'Ik kom op het werk om twaalf uur aan.',
+      'Op het werk kom ik om twaalf uur aan.',
+    ],
+  }),
+  sentence({
+    id: 'build-give-prescription', lessonId: 'notes-2026-10-19', topicIds: ['daily-life', 'word-order', 'pronouns-articles'],
+    title: 'At the pharmacy',
+    dutch: 'Roos geeft het recept aan de apotheker.', english: 'Roos gives the prescription to the pharmacist.',
+    explanation: 'Aan introduces the person who receives the prescription.',
+    quote: 'Roos geeft het recept aan apotheker.', adapted: true,
+    tokens: ['Roos', 'geeft', 'het recept', 'aan de apotheker.'],
+    acceptedAnswers: ['Roos geeft het recept aan de apotheker.', 'Roos geeft aan de apotheker het recept.'],
+  }),
+  ...verbPair({
+    verb: 'aankomen', person: 'ik', lessonId: 'notes-2026-10-19', topicIds: ['travel', 'work', 'past-tense', 'separable-verbs'],
+    quote: 'To arrive = aankomen',
+    models: [
+      'Ik kom vandaag om twaalf uur op het werk aan.',
+      'Ik kwam gisteren om twaalf uur op het werk aan.',
+      'Ik ben om twaalf uur op het werk aangekomen.',
+    ],
+    translations: ['I arrived at work at twelve yesterday.', 'I arrived at work at twelve.'],
+    explanations: [
+      'Aankomen separates in the simple past: kwam … aan.',
+      'Use zijn: ik ben … aangekomen. Aan joins the participle gekomen.',
+    ],
+  }),
+];
 
 const earlierPracticeItems: PracticeItem[] = [
   sentence({
@@ -1171,4 +1339,4 @@ const recentPracticeItems: PracticeItem[] = [
   }),
 ];
 
-export const practiceItems: PracticeItem[] = [...recentPracticeItems, ...earlierPracticeItems];
+export const practiceItems: PracticeItem[] = [...importedPracticeItems, ...recentPracticeItems, ...earlierPracticeItems];

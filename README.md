@@ -40,7 +40,7 @@ Sessions contain up to eight questions. Due reviews come first, with missed ques
 
 ## Updating lesson material
 
-Content lives in `src/practice/library.ts`, including the teacher’s Google Doc link as `DOCUMENT_URL`. Weekly updates are prepared manually from the document when requested.
+Content lives in `src/practice/library.ts`, including the teacher’s Google Doc link as `DOCUMENT_URL`. Updates can be requested or run by the owner's local Codex automation after lessons. The personal `gracht-lesson-update` skill reads the whole document, curates exercises, checks them and publishes through the existing GitHub workflow.
 
 To add a lesson:
 
@@ -57,6 +57,22 @@ npm run validate:practice -- /path/to/source.json
 ```
 
 The JSON extract must contain a `paragraphs` array whose objects have a `text` field.
+
+To compare a complete Google Docs text response with the last applied source:
+
+```bash
+npm run lesson:source -- compare /absolute/path/to/source.json
+```
+
+This checks ordered paragraphs across all tabs, including edits to older notes. The extract must include the configured `documentId` and a `tabId` for each paragraph. Confirm coverage of all document tabs before comparing. `scripts/teacher-sync.json` records the normalized source hash, paragraph count and imported exercise IDs. Full source snapshots stay outside Git, in `$CODEX_HOME/skills/gracht-lesson-update/state/teacher-source.json` (default `~/.codex`). A missing baseline requires reconciliation. `publication-unconfirmed` means the source matches the repository checkpoint but publication still needs verification against the applied baseline. Resolve any pending deployment before treating a run as unchanged or adding newer notes.
+
+When publishing a content update, update the public checkpoint with the reviewed source hash and import decisions. Once the app workflow, the website's Pages deployment and a live Firefox check succeed, save the private baseline:
+
+```bash
+npm run lesson:source -- checkpoint /absolute/path/to/source.json
+```
+
+The command refuses a source that differs from the public checkpoint. Unchanged notes and administrative additions produce no commit. Keep both applied checkpoints intact until there is a substantive content update. Scheduled local runs require the computer to be awake with Codex running and its source and GitHub connections available.
 
 ## Backups
 
@@ -79,6 +95,7 @@ npm run validate:practice
 npm run validate:decks
 npm run test:practice
 npm run test:verbs
+npm run test:lesson-source
 npm run build
 ```
 
