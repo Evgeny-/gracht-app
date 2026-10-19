@@ -28,11 +28,12 @@ assert.equal(compareSource(added, appliedCheckpoint, old).status, 'changed');
 // The next run sees the same source and must reconcile publication, not go quiet.
 const committedCheckpoint = checkpoint(added);
 const retry = compareSource(added, committedCheckpoint, old);
-assert.equal(retry.status, 'publication-unconfirmed');
+assert(retry.status === 'publication-unconfirmed');
 assert.equal(retry.appliedBaseline, 'mismatched');
-assert.match(retry.action ?? '', /commit SHA.*Pages.*live build/);
-assert.equal(compareSource(added, committedCheckpoint).status, 'publication-unconfirmed');
-assert.equal(compareSource(added, committedCheckpoint).appliedBaseline, 'missing');
+assert.match(retry.action, /commit SHA.*Pages.*live build/);
+const missingAppliedBaseline = compareSource(added, committedCheckpoint);
+assert(missingAppliedBaseline.status === 'publication-unconfirmed');
+assert.equal(missingAppliedBaseline.appliedBaseline, 'missing');
 // Publication and checkpointing restore a true no-op for identical content.
 assert.equal(compareSource(added, committedCheckpoint, added).status, 'unchanged');
 assert.equal(compareSource(source(['one', 'inserted', 'two', 'three', 'tail ']), committedCheckpoint, added).status, 'unchanged');

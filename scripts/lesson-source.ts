@@ -77,8 +77,15 @@ export function changedSpans(previous: Source, current: Source) {
   return spans;
 }
 
+type SourceComparison = { sourceHash: string; paragraphCount: number } & (
+  | { status: 'unchanged' }
+  | { status: 'publication-unconfirmed'; appliedBaseline: 'missing' | 'mismatched'; action: string }
+  | { status: 'baseline-missing'; action: string }
+  | { status: 'changed'; previousParagraphCount: number; rangesAreZeroBasedAndEndExclusive: true; changes: ReturnType<typeof changedSpans> }
+);
+
 /** A committed checkpoint does not prove that its app build was published. */
-export function compareSource(current: Source, checkpoint: Checkpoint, previous?: Source) {
+export function compareSource(current: Source, checkpoint: Checkpoint, previous?: Source): SourceComparison {
   const hash = sourceHash(current);
   const summary = { sourceHash: hash, paragraphCount: current.paragraphs.length };
   const previousHash = previous ? sourceHash(previous) : undefined;
