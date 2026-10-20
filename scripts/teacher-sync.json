@@ -2,35 +2,41 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:d608ba8fad524cdb0f078913cb08bf76442a731eef57f3de6c75c58a9a1e87c4",
-  "paragraphCount": 582,
-  "reviewedOn": "2026-10-19",
+  "sourceHash": "sha256:88e47375c75a6e456b963633c79de33f165d3ba9c0025e7a3fc51030c34502be",
+  "paragraphCount": 600,
+  "reviewedOn": "2026-10-20",
   "lastUpdate": {
     "lessonIds": [
-      "notes-2026-10-19"
+      "2026-10-20"
     ],
     "itemIds": [
-      "recall-op-bezoek",
-      "recall-horen",
-      "recall-reden",
-      "recall-hulp",
-      "recall-recept-prescription",
-      "recall-apotheker",
-      "contrast-zijn-z-n",
-      "contrast-hem-m",
-      "contrast-kwart-voor-over-vier",
-      "contrast-recept-medicijn",
-      "build-cancel-sick",
-      "build-visit-thursday",
-      "build-ask-arrival-time",
-      "build-train-delay",
-      "build-arrive-work",
-      "build-give-prescription",
-      "verb-aankomen-past-ik",
-      "verb-aankomen-completed-ik"
+      "recall-bureau-bureaustoel",
+      "recall-stofzuiger",
+      "recall-zinvol",
+      "recall-leerling",
+      "recall-jongere-jongeren",
+      "recall-gymzaal",
+      "recall-touw",
+      "recall-recyclebaar",
+      "recall-verminderen",
+      "recall-thermometer",
+      "recall-schaar",
+      "recall-plank-shelf",
+      "recall-ehbo",
+      "contrast-boven-beneden",
+      "contrast-gooien-weggooien",
+      "contrast-scheiden-sorteren",
+      "contrast-verband-pleister",
+      "build-sport-at-school",
+      "build-als-cleaning",
+      "build-reduce-waste-purpose",
+      "build-het-scheiden-van-afval",
+      "build-scissors-rope-purpose",
+      "verb-klimmen-past-ik",
+      "verb-klimmen-completed-ik",
+      "verb-springen-past-wij",
+      "verb-springen-completed-wij"
     ],
-    "skippedNotes": [
-      "Exercise website link; no Dutch practice content."
-    ]
+    "skippedNotes": []
   }
 }
