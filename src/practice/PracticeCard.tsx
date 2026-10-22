@@ -22,6 +22,7 @@ type PracticeCardProps = {
 
 export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps) {
   const [revealed, setRevealed] = useState(false);
+  const [wordsVisible, setWordsVisible] = useState(false);
   const [chosen, setChosen] = useState<number[]>([]);
   const [tokenOrder] = useState(() => {
     const order = (item.tokens ?? []).map((_, index) => index);
@@ -43,6 +44,7 @@ export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps
     : '';
   const assembled = chosen.map((index) => item.tokens?.[index]).join(' ');
   const matches = [item.answer, ...(item.acceptedAnswers ?? [])].some((answer) => normalize(answer) === normalize(assembled));
+  const wordsHidden = item.kind === 'build' && Boolean(item.tokens?.length) && !wordsVisible;
 
   function listen() {
     setAudioError('');
@@ -61,7 +63,7 @@ export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps
         {recallHint ? <p className="practice-task-description">{recallHint}</p> : null}
       </div>
 
-      {item.kind === 'build' && item.tokens ? (
+      {item.kind === 'build' && item.tokens && wordsVisible ? (
         <div className="phrase-builder">
           <div className="phrase-builder__sentence" aria-label="Your sentence" aria-live="polite">
             {chosen.length ? chosen.map((tokenIndex, index) => (
@@ -101,7 +103,7 @@ export function PracticeCard({ item, busy, voiceURI, onRate }: PracticeCardProps
             </div>
           </fieldset>
         ) : (
-          <Button tone="primary" size="lg" className="practice-reveal" disabled={busy} onClick={() => setRevealed(true)}><Eye size={19} />{item.kind === 'build' ? 'Compare my sentence' : 'Show the answer'}</Button>
+          <Button tone="primary" size="lg" className="practice-reveal" disabled={busy} onClick={() => wordsHidden ? setWordsVisible(true) : setRevealed(true)}><Eye size={19} />{wordsHidden ? 'Show words' : item.kind === 'build' ? 'Compare my sentence' : 'Show the answer'}</Button>
         )}
       </div>
     </article>
