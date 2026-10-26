@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 import { DOCUMENT_URL, lessons, practiceItems, topics } from '../src/practice/library';
+import { parseSource, sourceTexts } from './lesson-source';
 
 const lessonIds = new Set(lessons.map((lesson) => lesson.id));
 const itemIds = new Set<string>();
@@ -55,12 +56,11 @@ for (const topic of topics) assert(practiceItems.some((item) => item.topicIds.in
 
 // Pass the private source extract to verify quotes without adding lesson notes to the repository.
 if (process.argv[2]) {
-  const source = JSON.parse(readFileSync(process.argv[2], 'utf8')) as {
-    paragraphs: { text: string }[];
-  };
+  const source = parseSource(JSON.parse(readFileSync(process.argv[2], 'utf8')));
+  const passages = sourceTexts(source);
   for (const entry of practiceItems) {
     assert(
-      source.paragraphs.some((paragraph) => paragraph.text.includes(entry.source.quote)),
+      passages.some((passage) => passage.includes(entry.source.quote)),
       `Source quotation is not exact: ${entry.id}: ${entry.source.quote}`,
     );
   }

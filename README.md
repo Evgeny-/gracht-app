@@ -56,15 +56,17 @@ Source quotations stay in the data for future checks. The interface shows the cu
 npm run validate:practice -- /path/to/source.json
 ```
 
-The JSON extract must contain a `paragraphs` array whose objects have a `text` field.
+The JSON extract must include the configured `documentId` and a `paragraphs` array with `text` and `tabId` fields. For quoted image text, add an `images` array with each image's `id`, `tabId`, `contentHash` (`sha256:` followed by the image-byte hash) and reviewed `paragraphs` as strings. Keep image files and full transcriptions outside Git.
 
-To compare a complete Google Docs text response with the last applied source:
+To compare a complete Google Docs extract with the last applied source:
 
 ```bash
 npm run lesson:source -- compare /absolute/path/to/source.json
 ```
 
-This checks ordered paragraphs across all tabs, including edits to older notes. The extract must include the configured `documentId` and a `tabId` for each paragraph. Confirm coverage of all document tabs before comparing. `scripts/teacher-sync.json` records the normalized source hash, paragraph count and imported exercise IDs. Full source snapshots stay outside Git, in `$CODEX_HOME/skills/gracht-lesson-update/state/teacher-source.json` (default `~/.codex`). A missing baseline requires reconciliation. `publication-unconfirmed` means the source matches the repository checkpoint but publication still needs verification against the applied baseline. Resolve any pending deployment before treating a run as unchanged or adding newer notes.
+This checks ordered paragraphs across all tabs, including edits to older notes, and reports changes to images separately. Confirm coverage of all tabs and embedded images before comparing; the text API omits image content. Include every image in the manifest, even when it needs no transcription, or use an empty array for a document without images. The personal skill includes a helper that downloads image bytes and carries forward transcriptions only when the bytes still match. After images have been tracked, a missing manifest is rejected as an incomplete read.
+
+`scripts/teacher-sync.json` records the normalized source hash, paragraph count and imported exercise IDs. Full source snapshots stay outside Git, in `$CODEX_HOME/skills/gracht-lesson-update/state/teacher-source.json` (default `~/.codex`). A missing baseline requires reconciliation. `publication-unconfirmed` means the source matches the repository checkpoint but publication still needs verification against the applied baseline. Resolve any pending deployment before treating a run as unchanged or adding newer notes.
 
 When publishing a content update, update the public checkpoint with the reviewed source hash and import decisions. Once the app workflow, the website's Pages deployment and a live Firefox check succeed, save the private baseline:
 

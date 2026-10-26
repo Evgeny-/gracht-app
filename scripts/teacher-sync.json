@@ -2,41 +2,23 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:88e47375c75a6e456b963633c79de33f165d3ba9c0025e7a3fc51030c34502be",
-  "paragraphCount": 600,
-  "reviewedOn": "2026-10-20",
+  "sourceHash": "sha256:a5a90c319d244905455a91eb76f90bf0c30e9b0013bd2a8c8a45eabb1c12db4f",
+  "paragraphCount": 601,
+  "reviewedOn": "2026-10-26",
   "lastUpdate": {
     "lessonIds": [
-      "2026-10-20"
+      "notes-2026-10-26"
     ],
     "itemIds": [
-      "recall-bureau-bureaustoel",
-      "recall-stofzuiger",
-      "recall-zinvol",
-      "recall-leerling",
-      "recall-jongere-jongeren",
-      "recall-gymzaal",
-      "recall-touw",
-      "recall-recyclebaar",
-      "recall-verminderen",
-      "recall-thermometer",
-      "recall-schaar",
-      "recall-plank-shelf",
-      "recall-ehbo",
-      "contrast-boven-beneden",
-      "contrast-gooien-weggooien",
-      "contrast-scheiden-sorteren",
-      "contrast-verband-pleister",
-      "build-sport-at-school",
-      "build-als-cleaning",
-      "build-reduce-waste-purpose",
-      "build-het-scheiden-van-afval",
-      "build-scissors-rope-purpose",
-      "verb-klimmen-past-ik",
-      "verb-klimmen-completed-ik",
-      "verb-springen-past-wij",
-      "verb-springen-completed-wij"
+      "recall-weleens-experience",
+      "recall-ooit-experience",
+      "build-ever-travelled-alone",
+      "build-ever-been-museum",
+      "verb-reizen-completed-ik"
     ],
-    "skippedNotes": []
+    "skippedNotes": [
+      "Trailing separator; no exercise needed.",
+      "Earlier embedded reference images inventoried; existing practice retained."
+    ]
   }
 }

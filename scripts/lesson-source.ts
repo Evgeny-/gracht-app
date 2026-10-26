@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 export const DOCUMENT_ID = '1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ';
 export const NORMALIZATION = 'nfc-whitespace-v1';
 type Paragraph = { text: string; tabId?: string };
-type Source = { documentId: string; paragraphs: Paragraph[] };
+type SourceImage = { id: string; tabId: string; contentHash: string; paragraphs?: string[] };
+type Source = { documentId: string; paragraphs: Paragraph[]; images?: SourceImage[] };
 type Checkpoint = {
   schemaVersion: number;
   documentId: string;
@@ -25,11 +26,36 @@ export function parseSource(value: unknown): Source {
     || source.paragraphs.some((p) => !p || typeof p.text !== 'string' || typeof p.tabId !== 'string')) {
     throw new Error('Expected nonempty paragraphs with text and tabId. Fetch all document tabs.');
   }
-  return { documentId: source.documentId, paragraphs: source.paragraphs };
+  if (source.images !== undefined) {
+    if (!Array.isArray(source.images) || source.images.some((image) => !image
+      || typeof image.id !== 'string' || !image.id.trim()
+      || typeof image.tabId !== 'string' || !image.tabId.trim()
+      || typeof image.contentHash !== 'string' || !/^sha256:[a-f0-9]{64}$/.test(image.contentHash)
+      || (image.paragraphs !== undefined && (!Array.isArray(image.paragraphs)
+        || image.paragraphs.some((text) => typeof text !== 'string'))))) {
+      throw new Error('Expected image entries with nonempty id/tabId, sha256 contentHash and optional paragraph strings. Fetch the full document and hash the actual image bytes.');
+    }
+    if (new Set(source.images.map(imageIdentity)).size !== source.images.length) {
+      throw new Error('Image IDs must be unique within each tab. Fetch the full document image manifest.');
+    }
+  }
+  return { documentId: source.documentId, paragraphs: source.paragraphs,
+    ...(source.images !== undefined ? { images: source.images } : {}),
+  };
 }
 
+const normalizeText = (text: string) => text.normalize('NFC').replace(/\s+/gu, ' ').trim();
+
 function paragraphKey(paragraph: Paragraph): string {
-  return JSON.stringify([paragraph.tabId, paragraph.text.normalize('NFC').replace(/\s+/gu, ' ').trim()]);
+  return JSON.stringify([paragraph.tabId, normalizeText(paragraph.text)]);
+}
+
+function imageIdentity(image: SourceImage): string {
+  return JSON.stringify([image.tabId, image.id]);
+}
+
+function imageKey(image: SourceImage): string {
+  return JSON.stringify([image.tabId, image.id, image.contentHash, (image.paragraphs ?? []).map(normalizeText)]);
 }
 
 export function sourceHash(source: Source): string {
@@ -37,7 +63,28 @@ export function sourceHash(source: Source): string {
     documentId: source.documentId,
     normalization: NORMALIZATION,
     paragraphs: source.paragraphs.map(paragraphKey),
+    // Omitting this property preserves the exact hashes of legacy text extracts.
+    ...(source.images !== undefined ? { images: source.images.map(imageKey).sort() } : {}),
   })).digest('hex')}`;
+}
+
+export function sourceTexts(source: Source): string[] {
+  return [...source.paragraphs.map((paragraph) => paragraph.text),
+    ...(source.images ?? []).flatMap((image) => image.paragraphs ?? []),
+  ];
+}
+
+export function changedImages(previous: Source, current: Source) {
+  const before = new Map((previous.images ?? []).map((image) => [imageIdentity(image), image]));
+  const after = new Map((current.images ?? []).map((image) => [imageIdentity(image), image]));
+  return {
+    added: [...after].filter(([id]) => !before.has(id)).map(([, image]) => image),
+    removed: [...before].filter(([id]) => !after.has(id)).map(([, image]) => image),
+    changed: [...after].flatMap(([id, image]) => {
+      const earlier = before.get(id);
+      return earlier && imageKey(earlier) !== imageKey(image) ? [{ previous: earlier, current: image }] : [];
+    }),
+  };
 }
 
 /** Report every changed span, including edits in older lessons or other tabs. */
@@ -81,11 +128,14 @@ type SourceComparison = { sourceHash: string; paragraphCount: number } & (
   | { status: 'unchanged' }
   | { status: 'publication-unconfirmed'; appliedBaseline: 'missing' | 'mismatched'; action: string }
   | { status: 'baseline-missing'; action: string }
-  | { status: 'changed'; previousParagraphCount: number; rangesAreZeroBasedAndEndExclusive: true; changes: ReturnType<typeof changedSpans> }
+  | { status: 'changed'; previousParagraphCount: number; rangesAreZeroBasedAndEndExclusive: true; changes: ReturnType<typeof changedSpans>; imageChanges: ReturnType<typeof changedImages> }
 );
 
 /** A committed checkpoint does not prove that its app build was published. */
 export function compareSource(current: Source, checkpoint: Checkpoint, previous?: Source): SourceComparison {
+  if (previous?.images !== undefined && current.images === undefined) {
+    throw new Error('The current source omitted the image manifest tracked by the applied baseline. Fetch the full document, including its images.');
+  }
   const hash = sourceHash(current);
   const summary = { sourceHash: hash, paragraphCount: current.paragraphs.length };
   const previousHash = previous ? sourceHash(previous) : undefined;
@@ -117,6 +167,7 @@ export function compareSource(current: Source, checkpoint: Checkpoint, previous?
     previousParagraphCount: previous.paragraphs.length,
     rangesAreZeroBasedAndEndExclusive: true,
     changes: changedSpans(previous, current),
+    imageChanges: changedImages(previous, current),
   };
 }
 

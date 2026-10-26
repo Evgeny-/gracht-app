@@ -22,6 +22,13 @@ export const topics: PracticeTopic[] = [
 // Higher sortOrder means more recent material.
 export const lessons: PracticeLesson[] = [
   {
+    id: 'notes-2026-10-26',
+    title: 'Asking about experiences',
+    date: null,
+    sortOrder: 900,
+    description: 'Undated image notes imported on 26 October 2026.',
+  },
+  {
     id: '2026-10-20',
     title: 'School, home and recycling',
     date: '2026-10-20',
@@ -98,6 +105,7 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
+  'notes-2026-10-26': 'Undated image notes · imported 26 October 2026',
   '2026-10-20': '20 October · teacher’s notes',
   'notes-2026-10-19': 'Undated notes · imported 19 October 2026',
   'latest-additions': 'Earlier undated notes',
@@ -258,6 +266,65 @@ function verbPair(content: {
 }
 
 const importedPracticeItems: PracticeItem[] = [
+  item('recall', 'Translate into English', {
+    id: 'recall-weleens-experience', lessonId: 'notes-2026-10-26',
+    topicIds: ['conversation', 'travel', 'word-choice'],
+    label: 'Dutch → English', promptLanguage: 'nl', answerLanguage: 'en',
+    title: 'Heb je weleens alleen gereisd?',
+    prompt: 'Translate the question into English.',
+    answer: 'Have you ever travelled alone?',
+    explanation: 'Weleens means ever in this question: it asks whether you have had this experience at least once.',
+    dutch: 'Heb je weleens alleen gereisd?', english: 'Have you ever travelled alone?',
+    quote: 'Heb je weleens alleen gereisd?',
+  }),
+  item('recall', 'Translate into English', {
+    id: 'recall-ooit-experience', lessonId: 'notes-2026-10-26',
+    topicIds: ['conversation', 'travel', 'word-choice'],
+    label: 'Dutch → English', promptLanguage: 'nl', answerLanguage: 'en',
+    title: 'Ben je ooit naar het Van Gogh Museum geweest?',
+    prompt: 'Translate the question into English.',
+    answer: 'Have you ever been to the Van Gogh Museum?',
+    explanation: 'Ooit means ever here. You can also use weleens to ask whether someone has had this experience.',
+    dutch: 'Ben je ooit naar het Van Gogh Museum geweest?',
+    english: 'Have you ever been to the Van Gogh Museum?',
+    quote: 'Ben je ooit naar het Van Gogh museum geweest?', adapted: true,
+  }),
+  sentence({
+    id: 'build-ever-travelled-alone', lessonId: 'notes-2026-10-26',
+    topicIds: ['conversation', 'travel', 'past-tense', 'word-order'],
+    title: 'Ask about travelling alone',
+    prompt: 'Have you ever travelled alone? Use weleens.',
+    dutch: 'Heb je weleens alleen gereisd?', english: 'Have you ever travelled alone?',
+    explanation: 'Start the question with heb je. The participle gereisd comes at the end.',
+    quote: 'Heb je weleens alleen gereisd?',
+    tokens: ['Heb', 'je', 'weleens', 'alleen', 'gereisd?'],
+  }),
+  sentence({
+    id: 'build-ever-been-museum', lessonId: 'notes-2026-10-26',
+    topicIds: ['conversation', 'travel', 'past-tense', 'word-order'],
+    title: 'Ask about a museum visit',
+    prompt: 'Have you ever been to the Van Gogh Museum? Use ooit.',
+    dutch: 'Ben je ooit naar het Van Gogh Museum geweest?',
+    english: 'Have you ever been to the Van Gogh Museum?',
+    explanation: 'Use zijn with geweest: ben je … geweest? Naar het introduces the place visited.',
+    quote: 'Ben je ooit naar het Van Gogh museum geweest?', adapted: true,
+    tokens: ['Ben', 'je', 'ooit', 'naar het Van Gogh Museum', 'geweest?'],
+  }),
+  item('verb', 'Make it a completed action', {
+    id: 'verb-reizen-completed-ik', lessonId: 'notes-2026-10-26',
+    topicIds: ['past-tense', 'travel', 'conversation'],
+    title: 'I have travelled alone.',
+    prompt: 'Ik reis alleen. Say this as a completed experience.',
+    answer: 'Ik heb alleen gereisd.',
+    explanation: 'Use hebben for the activity here: ik heb gereisd. Reizen can take zijn when movement to a destination is the focus.',
+    dutch: 'Ik heb alleen gereisd.', english: 'I have travelled alone.',
+    quote: 'Heb je weleens alleen gereisd?', adapted: true,
+    reference: [
+      { label: 'Today', dutch: 'Ik reis vandaag alleen.' },
+      { label: 'Yesterday', dutch: 'Ik reisde gisteren alleen.' },
+      { label: 'Completed', dutch: 'Ik heb alleen gereisd.' },
+    ],
+  }),
   recall({
     id: 'recall-bureau-bureaustoel', lessonId: '2026-10-20', topicIds: ['daily-life', 'work', 'pronouns-articles'],
     title: 'The desk and the desk chair',
