@@ -2,23 +2,37 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:a5a90c319d244905455a91eb76f90bf0c30e9b0013bd2a8c8a45eabb1c12db4f",
-  "paragraphCount": 601,
-  "reviewedOn": "2026-10-26",
+  "sourceHash": "sha256:3e6e45a2221f044eb787b03af855be7152f143d3a56b3307abcdfb9abb9d0f8c",
+  "paragraphCount": 614,
+  "reviewedOn": "2026-10-27",
   "lastUpdate": {
     "lessonIds": [
-      "notes-2026-10-26"
+      "2026-10-27"
     ],
     "itemIds": [
-      "recall-weleens-experience",
-      "recall-ooit-experience",
-      "build-ever-travelled-alone",
-      "build-ever-been-museum",
-      "verb-reizen-completed-ik"
+      "recall-nog-een-keer",
+      "recall-vernieuwen",
+      "recall-van-alles",
+      "recall-vroeg-early",
+      "recall-rennen",
+      "recall-vies-hands",
+      "recall-bericht",
+      "recall-zsm-abbreviation",
+      "contrast-vernieuwen-veranderen",
+      "contrast-meest-meeste",
+      "build-explain-chatgpt-practice",
+      "build-answer-in-dutch",
+      "verb-wassen-past-ik",
+      "verb-wassen-completed-ik",
+      "verb-veranderen-completed-ik",
+      "verb-antwoorden-past-wij",
+      "verb-antwoorden-completed-wij"
     ],
     "skippedNotes": [
-      "Trailing separator; no exercise needed.",
-      "Earlier embedded reference images inventoried; existing practice retained."
+      "Repeated EHBO, beloven and halen notes reuse existing exercises.",
+      "Existing zo snel mogelijk practice retained; added recognition of its ZSM abbreviation.",
+      "Incomplete prefix fragment, blank row and app link need no exercise.",
+      "Two new game screenshots contain no Dutch learning material; earlier images are unchanged."
     ]
   }
 }
