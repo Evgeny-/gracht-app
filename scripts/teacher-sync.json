@@ -2,37 +2,46 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:3e6e45a2221f044eb787b03af855be7152f143d3a56b3307abcdfb9abb9d0f8c",
-  "paragraphCount": 614,
-  "reviewedOn": "2026-10-27",
+  "sourceHash": "sha256:b297139f9bb9eb00fcfd584f80db26f2d7d0a16894a663f63b255cc3f0f2cc44",
+  "paragraphCount": 631,
+  "reviewedOn": "2026-11-05",
   "lastUpdate": {
     "lessonIds": [
-      "2026-10-27"
+      "2026-11-05",
+      "notes-2026-11-03"
     ],
     "itemIds": [
-      "recall-nog-een-keer",
-      "recall-vernieuwen",
-      "recall-van-alles",
-      "recall-vroeg-early",
-      "recall-rennen",
-      "recall-vies-hands",
-      "recall-bericht",
-      "recall-zsm-abbreviation",
-      "contrast-vernieuwen-veranderen",
-      "contrast-meest-meeste",
-      "build-explain-chatgpt-practice",
-      "build-answer-in-dutch",
-      "verb-wassen-past-ik",
-      "verb-wassen-completed-ik",
-      "verb-veranderen-completed-ik",
-      "verb-antwoorden-past-wij",
-      "verb-antwoorden-completed-wij"
+      "recall-gebouw",
+      "recall-kleedkamer",
+      "recall-wedstrijd",
+      "recall-voorkant",
+      "recall-leeg-kleedkamer",
+      "recall-spullen",
+      "recall-verbouwing",
+      "recall-tijdelijk",
+      "recall-ergens",
+      "recall-medestudent",
+      "recall-verantwoord-choice",
+      "recall-verantwoording-afleggen",
+      "contrast-verantwoordelijkheid-verantwoordelijk",
+      "contrast-volgen-volgens",
+      "contrast-nog-still-yet",
+      "contrast-weer-weather-again",
+      "contrast-kijken-bekijken",
+      "build-need-time-let-me-know",
+      "build-according-teacher-changing-room",
+      "verb-toevoegen-past-ik",
+      "verb-toevoegen-completed-ik",
+      "verb-neerzetten-past-wij",
+      "verb-neerzetten-completed-wij",
+      "recall-omroepbericht-station"
     ],
     "skippedNotes": [
-      "Repeated EHBO, beloven and halen notes reuse existing exercises.",
-      "Existing zo snel mogelijk practice retained; added recognition of its ZSM abbreviation.",
-      "Incomplete prefix fragment, blank row and app link need no exercise.",
-      "Two new game screenshots contain no Dutch learning material; earlier images are unchanged."
+      "Repeated vroeg and standalone volgens mij reuse existing exercises.",
+      "Incomplete laat fragments are represented through the full let-me-know sentence.",
+      "The fragment about new things and work adds no distinct exercise.",
+      "The station screenshot supplies a heading only; its activity labels need no exercises.",
+      "Removed app link has no effect on exercises."
     ]
   }
 }
