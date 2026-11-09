@@ -22,6 +22,13 @@ export const topics: PracticeTopic[] = [
 // Higher sortOrder means more recent material.
 export const lessons: PracticeLesson[] = [
   {
+    id: '2026-11-09',
+    title: 'Remembering and explaining',
+    date: '2026-11-09',
+    sortOrder: 1300,
+    description: 'Remember new words and describe everyday situations.',
+  },
+  {
     id: '2026-11-05',
     title: 'Places and responsibilities',
     date: '2026-11-05',
@@ -126,6 +133,7 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
+  '2026-11-09': '9 November · teacher’s notes',
   '2026-11-05': '5 November · teacher’s notes',
   'notes-2026-11-03': 'Undated image notes · imported 3 November 2026',
   '2026-10-27': '27 October · teacher’s notes',
@@ -290,6 +298,101 @@ function verbPair(content: {
 }
 
 const importedPracticeItems: PracticeItem[] = [
+  vocabulary({
+    id: 'recall-deken', lessonId: '2026-11-09', topicIds: ['daily-life', 'pronouns-articles'],
+    title: 'The blanket', word: 'de deken',
+    prompt: 'Say “the blanket”, including the article, then say that the blanket is warm.',
+    dutch: 'De deken is warm.', english: 'The blanket is warm.',
+    explanation: 'In the Netherlands, use de deken. Het deken is also correct and is common in Belgium.',
+    quote: 'Het deken = the blanket', adapted: true,
+  }),
+  item('recall', 'Translate into English', {
+    id: 'recall-uitleg', lessonId: '2026-11-09', topicIds: ['conversation', 'pronouns-articles'],
+    label: 'Dutch → English', promptLanguage: 'nl', answerLanguage: 'en',
+    title: 'Bedankt voor de uitleg.', prompt: 'Translate the sentence into English.',
+    answer: 'Thanks for the explanation.',
+    dutch: 'Bedankt voor de uitleg.', english: 'Thanks for the explanation.',
+    explanation: 'De uitleg is the explanation. Uitleggen is the verb to explain.',
+    quote: 'De uitleg = the explanation', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-hoeveelheid', lessonId: '2026-11-09', topicIds: ['daily-life', 'pronouns-articles'],
+    title: 'The amount', word: 'de hoeveelheid',
+    prompt: 'Say “the amount”, then “a small amount of water”.',
+    dutch: 'een kleine hoeveelheid water', english: 'a small amount of water',
+    explanation: 'De hoeveelheid means the amount or quantity. A noun can follow directly: een hoeveelheid water.',
+    quote: 'De hoeveelheid = quantity', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-klacht-klachten', lessonId: '2026-11-09', topicIds: ['conversation', 'pronouns-articles'],
+    title: 'The complaint and the complaints', word: 'de klacht / de klachten',
+    prompt: 'Give the singular and plural, including the articles.',
+    dutch: 'de klacht / de klachten', english: 'the complaint / the complaints',
+    explanation: 'The plural adds en: klacht → klachten. Both forms take de.',
+    quote: 'De klacht(en) = the complaint(s)', adapted: true,
+  }),
+  recall({
+    id: 'recall-drukken-knop', lessonId: '2026-11-09', topicIds: ['daily-life', 'prepositions'],
+    title: 'Press the button', prompt: 'Tell someone to press the button.',
+    answer: 'Druk op de knop.',
+    dutch: 'Druk op de knop.', english: 'Press the button.',
+    explanation: 'Use drukken op for pressing a button. The command uses the stem druk.',
+    quote: 'Drukken = to press / push', adapted: true,
+  }),
+  item('recall', 'Translate into English', {
+    id: 'recall-opnieuw-beginnen', lessonId: '2026-11-09', topicIds: ['conversation', 'daily-life'],
+    label: 'Dutch → English', promptLanguage: 'nl', answerLanguage: 'en',
+    title: 'We beginnen opnieuw.', prompt: 'Translate the sentence into English.',
+    answer: 'We are starting again.',
+    dutch: 'We beginnen opnieuw.', english: 'We are starting again.',
+    explanation: 'Opnieuw means again or anew. Opnieuw beginnen means to start again or start over.',
+    quote: 'Opnieuw = all over again', adapted: true,
+  }),
+  contrast({
+    id: 'contrast-verbouwd-verbouwde', lessonId: '2026-11-09', topicIds: ['word-choice', 'daily-life'],
+    title: 'Describe a renovated building',
+    prompt: 'Say “the renovated building”, then “The building has been renovated”.',
+    answer: 'het verbouwde gebouw / Het gebouw is verbouwd.',
+    explanation: 'Use verbouwde before the noun in het verbouwde gebouw. After is, use verbouwd.',
+    dutch: 'het verbouwde gebouw / Het gebouw is verbouwd.',
+    english: 'the renovated building / The building has been renovated.',
+    quote: 'Verbouwde … = renovated …', adapted: true,
+  }),
+  sentence({
+    id: 'build-half-hour-dark', lessonId: '2026-11-09', topicIds: ['plans', 'word-order'],
+    title: 'In half an hour',
+    dutch: 'Over een half uur wordt het donker.', english: 'In half an hour it will get dark.',
+    explanation: 'Over een half uur means half an hour from now. With that phrase first, wordt comes before het.',
+    quote: 'over een half uur wordt het donker.', adapted: true,
+    tokens: ['Over een half uur', 'wordt', 'het', 'donker'],
+    acceptedAnswers: ['Over een half uur wordt het donker.', 'Het wordt over een half uur donker.', 'Het wordt donker over een half uur.'],
+  }),
+  sentence({
+    id: 'build-think-it-better', lessonId: '2026-11-09', topicIds: ['conversation', 'word-order', 'preferences'],
+    title: 'I think it is better',
+    dutch: 'Ik denk dat het beter is.', english: 'I think it is better.',
+    explanation: 'Het is beter becomes dat het beter is after ik denk. Is moves to the end of the dat clause.',
+    quote: 'Ik denk dat het beter is.',
+    tokens: ['Ik', 'denk', 'dat', 'het', 'beter', 'is'],
+  }),
+  sentence({
+    id: 'build-no-need-restart', lessonId: '2026-11-09', topicIds: ['conversation', 'word-order'],
+    title: 'No need to start again',
+    dutch: 'Je hoeft niet opnieuw te beginnen.', english: 'You do not have to start again.',
+    explanation: 'Hoeft niet … te beginnen means starting is unnecessary. Opnieuw means again.',
+    quote: 'Hoeven = to need / to have to', adapted: true,
+    tokens: ['Je', 'hoeft', 'niet', 'opnieuw', 'te beginnen'],
+  }),
+  ...verbPair({
+    verb: 'onthouden', person: 'ik', lessonId: '2026-11-09', topicIds: ['past-tense', 'daily-life'],
+    models: ['Ik onthoud vandaag de nieuwe woorden.', 'Ik onthield gisteren de nieuwe woorden.', 'Ik heb de nieuwe woorden onthouden.'],
+    translations: ['I remembered the new words yesterday.', 'I have remembered the new words.'],
+    explanations: [
+      'The singular past form is onthield. The present form can be ik onthoud or ik onthou.',
+      'Use hebben with onthouden: ik heb … onthouden. The participle has no extra ge-.',
+    ],
+    quote: 'Onthouden = to remember',
+  }),
   vocabulary({
     id: 'recall-gebouw', lessonId: '2026-11-05', topicIds: ['daily-life', 'pronouns-articles'],
     title: 'The building', word: 'het gebouw',
