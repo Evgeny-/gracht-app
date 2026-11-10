@@ -2,31 +2,38 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:fbb6ebf2b7ad878bf16933ccce749a408b227a62dc40bfe6e796a95d5fc6b50d",
-  "paragraphCount": 639,
-  "reviewedOn": "2026-11-09",
+  "sourceHash": "sha256:3dd305022a705a24cd4337a2538eaeee1f5c0bfd8dcc345c83ac632d95d21bad",
+  "paragraphCount": 668,
+  "reviewedOn": "2026-11-10",
   "lastUpdate": {
     "lessonIds": [
-      "2026-11-09"
+      "2026-11-10"
     ],
     "itemIds": [
-      "recall-deken",
-      "recall-uitleg",
-      "recall-hoeveelheid",
-      "recall-klacht-klachten",
-      "recall-drukken-knop",
-      "recall-opnieuw-beginnen",
-      "contrast-verbouwd-verbouwde",
-      "build-half-hour-dark",
-      "build-think-it-better",
-      "build-no-need-restart",
-      "verb-onthouden-past-ik",
-      "verb-onthouden-completed-ik"
+      "recall-spijt-hebben",
+      "recall-duidelijk-uitleg",
+      "recall-klant-klacht-eten",
+      "recall-blij-met-leven",
+      "recall-plurals-heden",
+      "recall-plurals-omas-fotos",
+      "contrast-salaris-uitkering",
+      "contrast-vanwege-omdat",
+      "contrast-alles-alle-woorden",
+      "contrast-heel-heel-veel",
+      "contrast-computers-pcs",
+      "build-parttime-russia",
+      "build-question-explain-again",
+      "build-remember-all-words",
+      "build-press-green-button",
+      "verb-verbouwen-completed-ouders",
+      "recall-deken"
     ],
     "skippedNotes": [
-      "Existing hoeven contrast retained; new phrase combines hoeven with opnieuw.",
-      "Existing kijken/bekijken exercises retained; the paragraph only gained the new lesson heading.",
-      "Blanket practice uses de deken as standard in the Netherlands; het deken is a regional variant."
+      "The earlier wedstrijd gloss now includes match, which the existing exercise already teaches.",
+      "The deken source quote was aligned with the corrected article note; the answer and revision are unchanged.",
+      "Repeated blanket and water-quantity examples reuse existing exercises.",
+      "The possessive reference list received no standalone drill; existing ons/onze practice remains and the new kitchen sentence practises hun.",
+      "The app link, copied article explanation and next-lesson listening reminder add no exercises."
     ]
   }
 }
