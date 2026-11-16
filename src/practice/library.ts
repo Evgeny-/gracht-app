@@ -22,6 +22,13 @@ export const topics: PracticeTopic[] = [
 // Higher sortOrder means more recent material.
 export const lessons: PracticeLesson[] = [
   {
+    id: '2026-11-16',
+    title: 'Schedules and notes',
+    date: '2026-11-16',
+    sortOrder: 1500,
+    description: 'Useful nouns and short sentences for everyday situations.',
+  },
+  {
     id: '2026-11-10',
     title: 'Work and everyday explanations',
     date: '2026-11-10',
@@ -140,6 +147,7 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
+  '2026-11-16': '16 November · teacher’s notes',
   '2026-11-10': '10 November · teacher’s notes',
   '2026-11-09': '9 November · teacher’s notes',
   '2026-11-05': '5 November · teacher’s notes',
@@ -306,6 +314,79 @@ function verbPair(content: {
 }
 
 const importedPracticeItems: PracticeItem[] = [
+  vocabulary({
+    id: 'recall-chirurg', lessonId: '2026-11-16', topicIds: ['daily-life', 'pronouns-articles'],
+    title: 'The surgeon', word: 'de chirurg',
+    prompt: 'Say “the surgeon”, then say that you have an appointment with the surgeon.',
+    dutch: 'Ik heb een afspraak met de chirurg.', english: 'I have an appointment with the surgeon.',
+    explanation: 'Use de with chirurg. Met de chirurg means with the surgeon.',
+    quote: 'Chirurg = surgeon', adapted: true,
+  }),
+  vocabulary({
+    id: 'recall-rooster', lessonId: '2026-11-16', topicIds: ['work', 'plans', 'pronouns-articles'],
+    title: 'The schedule', word: 'het rooster',
+    prompt: 'Name a schedule for work or classes, including the article.',
+    dutch: 'het rooster', english: 'the schedule',
+    explanation: 'Het rooster tells you when you work or have classes.',
+    quote: 'Het rooster = the schedule',
+  }),
+  item('recall', 'Translate into English', {
+    id: 'recall-scherm', lessonId: '2026-11-16', topicIds: ['daily-life', 'pronouns-articles'],
+    label: 'Dutch → English', promptLanguage: 'nl', answerLanguage: 'en',
+    title: 'Het scherm', prompt: 'Give the English meaning.',
+    answer: 'The screen', dutch: 'het scherm', english: 'The screen',
+    explanation: 'Het scherm can be the screen of a computer or phone.',
+    quote: 'Het scherm = the screen',
+  }),
+  vocabulary({
+    id: 'recall-garantie', lessonId: '2026-11-16', topicIds: ['shopping', 'pronouns-articles'],
+    title: 'The warranty', word: 'de garantie',
+    prompt: 'Say “the warranty”, then ask whether you have a warranty on this screen.',
+    dutch: 'Heb ik garantie op dit scherm?', english: 'Do I have a warranty on this screen?',
+    explanation: 'De garantie can mean a guarantee or warranty. Use garantie op when talking about a product.',
+    quote: 'De garantie = the guarantee', adapted: true,
+  }),
+  item('recall', 'Translate into English', {
+    id: 'recall-aantekeningen', lessonId: '2026-11-16', topicIds: ['conversation', 'pronouns-articles'],
+    label: 'Dutch → English', promptLanguage: 'nl', answerLanguage: 'en',
+    title: 'Waar zijn mijn aantekeningen?', prompt: 'Translate the question into English.',
+    answer: 'Where are my notes?', dutch: 'Waar zijn mijn aantekeningen?', english: 'Where are my notes?',
+    explanation: 'Aantekeningen is plural, so use zijn. One note is een aantekening.',
+    quote: 'De aantekeningen = the notes', adapted: true,
+  }),
+  contrast({
+    id: 'contrast-nul-niets', lessonId: '2026-11-16', topicIds: ['word-choice', 'daily-life'],
+    title: 'Zero or nothing',
+    prompt: 'Say “There is a zero on the screen” and “There is nothing on the screen”.',
+    answer: 'Er staat een nul op het scherm. / Er staat niets op het scherm.',
+    dutch: 'Er staat een nul op het scherm. Er staat niets op het scherm.',
+    english: 'There is a zero on the screen. There is nothing on the screen.',
+    explanation: 'Nul names the number 0. Niets means nothing: the screen shows no content.',
+    quote: 'Nul = zero', adapted: true,
+  }),
+  sentence({
+    id: 'build-rooster-scherm', lessonId: '2026-11-16', topicIds: ['work', 'word-order', 'prepositions'],
+    title: 'The schedule is on the screen',
+    dutch: 'Het rooster staat op het scherm.', english: 'The schedule is on the screen.',
+    explanation: 'Use op het scherm for something displayed on the screen.',
+    quote: 'Het rooster = the schedule', adapted: true,
+    tokens: ['Het rooster', 'staat', 'op het scherm'],
+    acceptedAnswers: ['Het rooster staat op het scherm.', 'Op het scherm staat het rooster.'],
+  }),
+  sentence({
+    id: 'build-aantekeningen-les', lessonId: '2026-11-16', topicIds: ['conversation', 'word-order'],
+    title: 'Take notes during the lesson',
+    dutch: 'Ik maak aantekeningen tijdens de les.', english: 'I take notes during the lesson.',
+    explanation: 'Aantekeningen maken means to take notes. Tijdens de les means during the lesson.',
+    quote: 'De aantekeningen = the notes', adapted: true,
+    tokens: ['Ik', 'maak', 'aantekeningen', 'tijdens de les'],
+    acceptedAnswers: [
+      'Ik maak aantekeningen tijdens de les.',
+      'Ik maak tijdens de les aantekeningen.',
+      'Tijdens de les maak ik aantekeningen.',
+      'Aantekeningen maak ik tijdens de les.',
+    ],
+  }),
   vocabulary({
     id: 'recall-spijt-hebben', lessonId: '2026-11-10', topicIds: ['preferences', 'conversation', 'prepositions'],
     title: 'To regret', word: 'spijt hebben van',
