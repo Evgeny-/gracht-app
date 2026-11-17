@@ -21,6 +21,7 @@ export const topics: PracticeTopic[] = [
 
 // Higher sortOrder means more recent material.
 export const lessons: PracticeLesson[] = [
+  { id: '2026-11-17', title: 'Requests and completed actions', date: '2026-11-17', sortOrder: 1600, description: 'Ask for help and talk about things you have done.' },
   {
     id: '2026-11-16',
     title: 'Schedules and notes',
@@ -147,6 +148,7 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
+  '2026-11-17': '17 November · teacher’s notes',
   '2026-11-16': '16 November · teacher’s notes',
   '2026-11-10': '10 November · teacher’s notes',
   '2026-11-09': '9 November · teacher’s notes',
@@ -314,6 +316,260 @@ function verbPair(content: {
 }
 
 const importedPracticeItems: PracticeItem[] = [
+  item("recall", "Say it in Dutch", {
+    "id": "recall-bestelling",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "shopping",
+        "conversation"
+    ],
+    "title": "Your order",
+    "prompt": "Say that you have a complaint about your order.",
+    "answer": "Ik heb een klacht over mijn bestelling.",
+    "dutch": "Ik heb een klacht over mijn bestelling.",
+    "english": "Your order",
+    "explanation": "De bestelling means the order. Use een klacht over for a complaint about something.",
+    "quote": "Ik heb een klacht over mijn bestelling.",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-indienen",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "shopping",
+        "separable-verbs"
+    ],
+    "title": "File a complaint",
+    "prompt": "Say “to file a complaint”.",
+    "answer": "een klacht indienen",
+    "dutch": "een klacht indienen",
+    "english": "File a complaint",
+    "explanation": "Indienen means to submit or file. It separates in a main clause: ik dien een klacht in.",
+    "quote": "Indienen = to submit, to file",
+    "adapted": true
+}),
+  item("recall", "Translate into English", {
+    "id": "recall-battery-zero",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "daily-life"
+    ],
+    "title": "Mijn mobieltje heeft nul procent batterij.",
+    "prompt": "Translate into English.",
+    "answer": "My phone has zero percent battery.",
+    "dutch": "Mijn mobieltje heeft nul procent batterij.",
+    "english": "Mijn mobieltje heeft nul procent batterij.",
+    "explanation": "Nul procent means zero percent. Mobieltje is a diminutive and takes het.",
+    "quote": "Mijn mobieltje heeft nul procent batterij.",
+    "adapted": true,
+    "label": "Dutch → English",
+    "promptLanguage": "nl",
+    "answerLanguage": "en"
+}),
+  item("recall", "Translate into English", {
+    "id": "recall-warranty-still",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "shopping"
+    ],
+    "title": "Is er nog steeds garantie op deze mobiel?",
+    "prompt": "Translate into English.",
+    "answer": "Is this phone still under warranty?",
+    "dutch": "Is er nog steeds garantie op deze mobiel?",
+    "english": "Is er nog steeds garantie op deze mobiel?",
+    "explanation": "Nog steeds means still. Garantie op refers to warranty coverage for a product.",
+    "quote": "Is er nog steeds garantie op deze mobiel?",
+    "adapted": true,
+    "label": "Dutch → English",
+    "promptLanguage": "nl",
+    "answerLanguage": "en"
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-in-het-midden",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "prepositions"
+    ],
+    "title": "In the middle of",
+    "prompt": "Say “in the middle of Russia”.",
+    "answer": "In het midden van Rusland.",
+    "dutch": "In het midden van Rusland.",
+    "english": "In the middle of",
+    "explanation": "Use in het midden van for in the middle of a place.",
+    "quote": "In het midden van Rusland.",
+    "adapted": true
+}),
+  item("contrast", "Know the difference", {
+    "id": "contrast-surgeon-working",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "word-order",
+        "daily-life"
+    ],
+    "title": "Working today",
+    "prompt": "Say “The surgeon works in the hospital today”, starting with De chirurg and then Vandaag.",
+    "answer": "De chirurg werkt vandaag in het ziekenhuis. / Vandaag werkt de chirurg in het ziekenhuis.",
+    "dutch": "De chirurg werkt vandaag in het ziekenhuis. / Vandaag werkt de chirurg in het ziekenhuis.",
+    "english": "Working today",
+    "explanation": "Use werkt as the main verb. When Vandaag comes first, werkt comes before de chirurg.",
+    "quote": "De chirurg werkt vandaag in het ziekenhuis.",
+    "adapted": true
+}),
+  item("build", "Build a phrase", {
+    "id": "build-see-nothing-screen",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "word-order",
+        "daily-life"
+    ],
+    "title": "I cannot see anything on the screen.",
+    "prompt": "I cannot see anything on the screen.",
+    "answer": "Ik kan niets op het scherm zien.",
+    "dutch": "Ik kan niets op het scherm zien.",
+    "english": "I cannot see anything on the screen.",
+    "explanation": "Niets means nothing or not anything. Zien goes at the end after kan.",
+    "quote": "Ik kan niets op het scherm zien.",
+    "adapted": true,
+    "tokens": [
+        "Ik",
+        "kan",
+        "niets",
+        "op het scherm",
+        "zien"
+    ],
+    "acceptedAnswers": [
+        "Ik kan niets op het scherm zien.",
+        "Op het scherm kan ik niets zien."
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-send-next-week-schedule",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "work",
+        "word-order"
+    ],
+    "title": "Can you send the schedule for next week?",
+    "prompt": "Can you send the schedule for next week?",
+    "answer": "Kun je het rooster voor volgende week sturen?",
+    "dutch": "Kun je het rooster voor volgende week sturen?",
+    "english": "Can you send the schedule for next week?",
+    "explanation": "Voor volgende week describes the schedule. Kun starts the question.",
+    "quote": "Kun je het rooster voor volgende week sturen??",
+    "adapted": true,
+    "tokens": [
+        "Kun",
+        "je",
+        "het rooster voor volgende week",
+        "sturen"
+    ],
+    "acceptedAnswers": [
+        "Kun je het rooster voor volgende week sturen?"
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-check-screen",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "conversation",
+        "word-order"
+    ],
+    "title": "Can you check the screen for a moment?",
+    "prompt": "Can you check the screen for a moment?",
+    "answer": "Kun je het scherm even controleren?",
+    "dutch": "Kun je het scherm even controleren?",
+    "english": "Can you check the screen for a moment?",
+    "explanation": "Controleren means to check; checken is also used. Even makes this a brief request.",
+    "quote": "Kun je het scherm even checken?",
+    "adapted": true,
+    "tokens": [
+        "Kun",
+        "je",
+        "het scherm",
+        "even",
+        "controleren"
+    ],
+    "acceptedAnswers": [
+        "Kun je het scherm even controleren?",
+        "Kun je even het scherm controleren?"
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-vergeten-notes-past",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "past-tense"
+    ],
+    "title": "I forgot my notes at home.",
+    "prompt": "Ik vergeet mijn aantekeningen thuis. Say this in the simple past.",
+    "answer": "Ik vergat mijn aantekeningen thuis.",
+    "dutch": "Ik vergat mijn aantekeningen thuis.",
+    "english": "I forgot my notes at home.",
+    "explanation": "The singular simple past of vergeten is vergat.",
+    "quote": "Ik vergat mijn aantekeningen thuis.--> past simple",
+    "adapted": true,
+    "reference": [
+        {
+            "label": "Today",
+            "dutch": "Ik vergeet mijn aantekeningen thuis."
+        },
+        {
+            "label": "Yesterday",
+            "dutch": "Ik vergat mijn aantekeningen thuis."
+        },
+        {
+            "label": "Completed",
+            "dutch": "Ik ben mijn aantekeningen thuis vergeten."
+        }
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-vergeten-notes-perfect",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "past-tense"
+    ],
+    "title": "I have left my notes at home.",
+    "prompt": "Ik vergeet mijn aantekeningen thuis. Say this as a completed action.",
+    "answer": "Ik ben mijn aantekeningen thuis vergeten.",
+    "dutch": "Ik ben mijn aantekeningen thuis vergeten.",
+    "english": "I have left my notes at home.",
+    "explanation": "Vergeten has no extra ge-. Here both ben vergeten and heb vergeten are possible because you forgot to bring something.",
+    "quote": "Ik ben mijn aantekeningen thuis vergeten. → present perfect",
+    "adapted": true,
+    "reference": [
+        {
+            "label": "Today",
+            "dutch": "Ik vergeet mijn aantekeningen thuis."
+        },
+        {
+            "label": "Yesterday",
+            "dutch": "Ik vergat mijn aantekeningen thuis."
+        },
+        {
+            "label": "Completed",
+            "dutch": "Ik ben mijn aantekeningen thuis vergeten."
+        }
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-maken-notes-meeting",
+    "lessonId": "2026-11-17",
+    "topicIds": [
+        "past-tense",
+        "work"
+    ],
+    "title": "I made the notes during the meeting.",
+    "prompt": "Ik maak de aantekeningen tijdens de meeting. Say this as a completed action.",
+    "answer": "Ik heb de aantekeningen tijdens de meeting gemaakt.",
+    "dutch": "Ik heb de aantekeningen tijdens de meeting gemaakt.",
+    "english": "I made the notes during the meeting.",
+    "explanation": "Maken becomes gemaakt with hebben. Vergadering is another word for meeting.",
+    "quote": "Ik heb de aantekeningen tijdens de meeting gemaakt.",
+    "adapted": true,
+    "reference": [{"label": "Today", "dutch": "Ik maak de aantekeningen tijdens de meeting."}, {"label": "Yesterday", "dutch": "Ik maakte de aantekeningen tijdens de meeting."}, {"label": "Completed", "dutch": "Ik heb de aantekeningen tijdens de meeting gemaakt."}]
+}),
+
   vocabulary({
     id: 'recall-chirurg', lessonId: '2026-11-16', topicIds: ['daily-life', 'pronouns-articles'],
     title: 'The surgeon', word: 'de chirurg',

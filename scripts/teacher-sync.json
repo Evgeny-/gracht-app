@@ -2,28 +2,32 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:08c7b437607088ae42265fb429a9f5368be7040e68cb8d13647e0922b1db1b42",
-  "paragraphCount": 673,
-  "reviewedOn": "2026-11-16",
+  "sourceHash": "sha256:82490342ef54eb679a4cb30511cf7e79a04edb749747100383333815b42eb6f7",
+  "paragraphCount": 693,
+  "reviewedOn": "2026-11-17",
   "lastUpdate": {
     "lessonIds": [
-      "2026-11-16"
+      "2026-11-17"
     ],
     "itemIds": [
-      "recall-chirurg",
-      "recall-rooster",
-      "recall-scherm",
-      "recall-garantie",
-      "recall-aantekeningen",
-      "contrast-nul-niets",
-      "build-rooster-scherm",
-      "build-aantekeningen-les"
+      "recall-bestelling",
+      "recall-indienen",
+      "recall-battery-zero",
+      "recall-warranty-still",
+      "recall-in-het-midden",
+      "contrast-surgeon-working",
+      "build-see-nothing-screen",
+      "build-send-next-week-schedule",
+      "build-check-screen",
+      "verb-vergeten-notes-past",
+      "verb-vergeten-notes-perfect",
+      "verb-maken-notes-meeting"
     ],
     "skippedNotes": [
-      "The restaurant name and article link are reference material rather than new language exercises.",
-      "Repeated klant and klacht reuse existing exercises.",
-      "Existing niets questions remain; a new contrast distinguishes zero from nothing.",
-      "A leading whitespace change in the earlier remembering sentence does not change its exercise."
+      "Museum links are reference material.",
+      "The sentence about one person and national territory adds no distinct target.",
+      "Existing clear-explanation exercise covers the final English fragment.",
+      "Correct surgeon sentence used; incorrect learner attempt not taught."
     ]
   }
 }
