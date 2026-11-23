@@ -21,6 +21,7 @@ export const topics: PracticeTopic[] = [
 
 // Higher sortOrder means more recent material.
 export const lessons: PracticeLesson[] = [
+  { id: '2026-11-23', title: 'Food and recommendations', date: '2026-11-23', sortOrder: 1700, description: 'Talk about food, recommend something and describe what you lost.' },
   { id: '2026-11-17', title: 'Requests and completed actions', date: '2026-11-17', sortOrder: 1600, description: 'Ask for help and talk about things you have done.' },
   {
     id: '2026-11-16',
@@ -148,6 +149,7 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
+  '2026-11-23': '23 November · teacher’s notes',
   '2026-11-17': '17 November · teacher’s notes',
   '2026-11-16': '16 November · teacher’s notes',
   '2026-11-10': '10 November · teacher’s notes',
@@ -316,6 +318,338 @@ function verbPair(content: {
 }
 
 const importedPracticeItems: PracticeItem[] = [
+  item("recall", "Say it in Dutch", {
+    "id": "recall-gerecht",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life",
+        "pronouns-articles"
+    ],
+    "title": "The dish",
+    "prompt": "Say this in Dutch, including the article.",
+    "answer": "het gerecht",
+    "dutch": "het gerecht",
+    "english": "The dish",
+    "explanation": "For a prepared dish or meal, use het gerecht.",
+    "quote": "Het gerecht = the dish",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-gehakt",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life",
+        "pronouns-articles"
+    ],
+    "title": "Minced meat",
+    "prompt": "Say this in Dutch, including the article.",
+    "answer": "het gehakt",
+    "dutch": "het gehakt",
+    "english": "Minced meat",
+    "explanation": "Gehakt is minced meat or ground meat. Keep het with the noun.",
+    "quote": "Het gehakt = minced meat",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-spitskool",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life",
+        "pronouns-articles"
+    ],
+    "title": "Pointed cabbage",
+    "prompt": "Say this in Dutch, including the article.",
+    "answer": "de spitskool",
+    "dutch": "de spitskool",
+    "english": "Pointed cabbage",
+    "explanation": "Spitskool is pointed cabbage. It takes de.",
+    "quote": "Spitskool",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-spier",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life",
+        "pronouns-articles"
+    ],
+    "title": "The muscle",
+    "prompt": "Say this in Dutch, including the article.",
+    "answer": "de spier",
+    "dutch": "de spier",
+    "english": "The muscle",
+    "explanation": "The plural is de spieren.",
+    "quote": "De spier = the muscle",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-lawaai",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life",
+        "pronouns-articles"
+    ],
+    "title": "The noise",
+    "prompt": "Say this in Dutch, including the article.",
+    "answer": "het lawaai",
+    "dutch": "het lawaai",
+    "english": "The noise",
+    "explanation": "Lawaai means noise, often loud or unpleasant noise.",
+    "quote": "Het lawaai = noise",
+    "adapted": true
+}),
+  item("recall", "Translate into English", {
+    "id": "recall-kruiden",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life"
+    ],
+    "title": "Kruiden",
+    "prompt": "Give the English meaning in a cooking context.",
+    "answer": "Herbs and spices",
+    "dutch": "kruiden",
+    "english": "Kruiden",
+    "explanation": "In cooking, kruiden can refer to herbs and spices used for seasoning.",
+    "quote": "Kruiden = spices",
+    "adapted": true,
+    "label": "Dutch → English",
+    "promptLanguage": "nl",
+    "answerLanguage": "en"
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-zorgen-voor",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life",
+        "prepositions"
+    ],
+    "title": "Take care of",
+    "prompt": "Say “I take care of my cat”.",
+    "answer": "Ik zorg voor mijn kat.",
+    "dutch": "Ik zorg voor mijn kat.",
+    "english": "Take care of",
+    "explanation": "Use zorgen voor with the person or animal you look after.",
+    "quote": "Zorgen voor = to take care of",
+    "adapted": true
+}),
+  item("recall", "Translate into English", {
+    "id": "recall-ontspannen",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "daily-life"
+    ],
+    "title": "Ik wil ontspannen.",
+    "prompt": "Translate into English.",
+    "answer": "I want to relax.",
+    "dutch": "Ik wil ontspannen.",
+    "english": "Ik wil ontspannen.",
+    "explanation": "After wil, use the infinitive ontspannen.",
+    "quote": "Ontspannen = to relax",
+    "adapted": true,
+    "label": "Dutch → English",
+    "promptLanguage": "nl",
+    "answerLanguage": "en"
+}),
+  item("build", "Build a phrase", {
+    "id": "build-easy-choice-faster",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "It is an easy choice because it is faster.",
+    "prompt": "It is an easy choice because it is faster.",
+    "answer": "Het is een makkelijke keuze, want het is sneller.",
+    "dutch": "Het is een makkelijke keuze, want het is sneller.",
+    "english": "It is an easy choice because it is faster.",
+    "explanation": "Want keeps normal main-clause order: het is sneller.",
+    "quote": "Het is een makkelijke keuze want het is sneller.",
+    "adapted": true,
+    "tokens": [
+        "Het is",
+        "een makkelijke keuze",
+        "want",
+        "het",
+        "is",
+        "sneller"
+    ],
+    "acceptedAnswers": [
+        "Het is een makkelijke keuze, want het is sneller."
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-depends-lost",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "It depends on what I have lost.",
+    "prompt": "It depends on what I have lost.",
+    "answer": "Het ligt eraan wat ik ben kwijtgeraakt.",
+    "dutch": "Het ligt eraan wat ik ben kwijtgeraakt.",
+    "english": "It depends on what I have lost.",
+    "explanation": "Het ligt eraan means it depends. In the wat clause, ben kwijtgeraakt comes at the end.",
+    "quote": "Het ligt eraan wat ik ben kwijtgeraakt = It depends",
+    "adapted": true,
+    "tokens": [
+        "Het ligt eraan",
+        "wat",
+        "ik",
+        "ben",
+        "kwijtgeraakt"
+    ],
+    "acceptedAnswers": [
+        "Het ligt eraan wat ik ben kwijtgeraakt."
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-recommend-tool",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "Then I recommend this tool.",
+    "prompt": "Then I recommend this tool.",
+    "answer": "Dan raad ik deze tool aan.",
+    "dutch": "Dan raad ik deze tool aan.",
+    "english": "Then I recommend this tool.",
+    "explanation": "Aanraden separates: raad … aan. With Dan first, raad comes before ik.",
+    "quote": "Dan raad ik deze tool aan. = Then I would recommend this tool.",
+    "adapted": true,
+    "tokens": [
+        "Dan",
+        "raad",
+        "ik",
+        "deze tool",
+        "aan"
+    ],
+    "acceptedAnswers": [
+        "Dan raad ik deze tool aan."
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-aanraden-past-lesson",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "past-tense",
+        "separable-verbs"
+    ],
+    "title": "I recommended this tool yesterday.",
+    "prompt": "Ik raad vandaag deze tool aan. Say this about yesterday.",
+    "answer": "Ik raadde gisteren deze tool aan.",
+    "dutch": "Ik raadde gisteren deze tool aan.",
+    "english": "I recommended this tool yesterday.",
+    "explanation": "Use raadde … aan in the simple past.",
+    "quote": "Aanraden = to recommend",
+    "adapted": true,
+    "reference": [
+        {
+            "label": "Today",
+            "dutch": "Ik raad vandaag deze tool aan."
+        },
+        {
+            "label": "Yesterday",
+            "dutch": "Ik raadde gisteren deze tool aan."
+        },
+        {
+            "label": "Completed",
+            "dutch": "Ik heb deze tool aangeraden."
+        }
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-aanraden-completed-lesson",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "past-tense",
+        "separable-verbs"
+    ],
+    "title": "I have recommended this tool.",
+    "prompt": "Ik raad vandaag deze tool aan. Say this as a completed action.",
+    "answer": "Ik heb deze tool aangeraden.",
+    "dutch": "Ik heb deze tool aangeraden.",
+    "english": "I have recommended this tool.",
+    "explanation": "Use hebben with aangeraden. The participle ends in en.",
+    "quote": "Aanraden = to recommend",
+    "adapted": true,
+    "reference": [
+        {
+            "label": "Today",
+            "dutch": "Ik raad vandaag deze tool aan."
+        },
+        {
+            "label": "Yesterday",
+            "dutch": "Ik raadde gisteren deze tool aan."
+        },
+        {
+            "label": "Completed",
+            "dutch": "Ik heb deze tool aangeraden."
+        }
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-kwijtraken-past-lesson",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "past-tense",
+        "separable-verbs"
+    ],
+    "title": "I lost my backpack yesterday.",
+    "prompt": "Ik raak vandaag mijn rugzak kwijt. Say this about yesterday.",
+    "answer": "Ik raakte gisteren mijn rugzak kwijt.",
+    "dutch": "Ik raakte gisteren mijn rugzak kwijt.",
+    "english": "I lost my backpack yesterday.",
+    "explanation": "The simple past separates: raakte … kwijt.",
+    "quote": "Kwijtraken = to lose",
+    "adapted": true,
+    "reference": [
+        {
+            "label": "Today",
+            "dutch": "Ik raak vandaag mijn rugzak kwijt."
+        },
+        {
+            "label": "Yesterday",
+            "dutch": "Ik raakte gisteren mijn rugzak kwijt."
+        },
+        {
+            "label": "Completed",
+            "dutch": "Ik ben mijn rugzak kwijtgeraakt."
+        }
+    ]
+}),
+  item("verb", "Change the sentence", {
+    "id": "verb-kwijtraken-completed-lesson",
+    "lessonId": "2026-11-23",
+    "topicIds": [
+        "past-tense",
+        "separable-verbs"
+    ],
+    "title": "I have lost my backpack.",
+    "prompt": "Ik raak vandaag mijn rugzak kwijt. Say this as a completed action.",
+    "answer": "Ik ben mijn rugzak kwijtgeraakt.",
+    "dutch": "Ik ben mijn rugzak kwijtgeraakt.",
+    "english": "I have lost my backpack.",
+    "explanation": "Use zijn with kwijtgeraakt: ik ben mijn rugzak kwijtgeraakt.",
+    "quote": "Kwijtraken = to lose",
+    "adapted": true,
+    "reference": [
+        {
+            "label": "Today",
+            "dutch": "Ik raak vandaag mijn rugzak kwijt."
+        },
+        {
+            "label": "Yesterday",
+            "dutch": "Ik raakte gisteren mijn rugzak kwijt."
+        },
+        {
+            "label": "Completed",
+            "dutch": "Ik ben mijn rugzak kwijtgeraakt."
+        }
+    ]
+}),
+
   item("recall", "Say it in Dutch", {
     "id": "recall-bestelling",
     "lessonId": "2026-11-17",
