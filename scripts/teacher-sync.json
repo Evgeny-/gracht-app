@@ -2,34 +2,35 @@
   "schemaVersion": 1,
   "documentId": "1wWqXpMZOCuDrDPBumpbZlD_yh81TdCStvmaoHaJQcPQ",
   "normalization": "nfc-whitespace-v1",
-  "sourceHash": "sha256:f2b328f7aef76deb32bbc844a441ce22ed00221dc75b02caf964ae69a67a846e",
-  "paragraphCount": 705,
-  "reviewedOn": "2026-11-23",
+  "sourceHash": "sha256:4b3777c8dbd01a8858305c3462627e5f64af3e8d8a80597698c6c6a1841550e9",
+  "paragraphCount": 724,
+  "reviewedOn": "2026-11-24",
   "lastUpdate": {
     "lessonIds": [
-      "2026-11-23"
+      "2026-11-24"
     ],
     "itemIds": [
-      "recall-gerecht",
-      "recall-gehakt",
-      "recall-spitskool",
-      "recall-spier",
-      "recall-lawaai",
-      "recall-kruiden",
-      "recall-zorgen-voor",
-      "recall-ontspannen",
-      "build-easy-choice-faster",
-      "build-depends-lost",
-      "build-recommend-tool",
-      "verb-aanraden-past-lesson",
-      "verb-aanraden-completed-lesson",
-      "verb-kwijtraken-past-lesson",
-      "verb-kwijtraken-completed-lesson"
+      "recall-wennen-aan",
+      "recall-ik-snap-het",
+      "recall-luxeprobleem",
+      "recall-er-place-utrecht",
+      "recall-er-quantity-books",
+      "build-er-blij-mee",
+      "build-er-zin-in",
+      "build-er-dog-park",
+      "build-winter-travel",
+      "contrast-er-passive-no-work",
+      "contrast-passive-mistake",
+      "contrast-die-dat-objects",
+      "contrast-er-omit-bus",
+      "recall-radio-er-naar",
+      "recall-lawaai"
     ],
     "skippedNotes": [
-      "Golubtsi and massage gun photos illustrate the conversation; no additional Dutch text requires exercises.",
-      "The isolated English massage-gun label adds no Dutch target.",
-      "The backpack sentence is represented by contextual kwijtraken practice."
+      "Earlier lawaai gloss adds the without changing the existing answer.",
+      "Niets and niks reuse existing practice.",
+      "The pronoun table reuses earlier demonstrative exercises; new dat task applies the rule to recently learned nouns.",
+      "The er screenshot was fully transcribed; representative place, quantity and prepositional examples were selected."
     ]
   }
 }

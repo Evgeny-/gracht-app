@@ -21,6 +21,7 @@ export const topics: PracticeTopic[] = [
 
 // Higher sortOrder means more recent material.
 export const lessons: PracticeLesson[] = [
+  { id: '2026-11-24', title: 'Getting used to er', date: '2026-11-24', sortOrder: 1800, description: 'Use er for places, amounts and everyday expressions.' },
   { id: '2026-11-23', title: 'Food and recommendations', date: '2026-11-23', sortOrder: 1700, description: 'Talk about food, recommend something and describe what you lost.' },
   { id: '2026-11-17', title: 'Requests and completed actions', date: '2026-11-17', sortOrder: 1600, description: 'Ask for help and talk about things you have done.' },
   {
@@ -149,6 +150,7 @@ export const lessons: PracticeLesson[] = [
 ];
 
 const sourceLabels: Record<string, string> = {
+  '2026-11-24': '24 November · teacher’s notes',
   '2026-11-23': '23 November · teacher’s notes',
   '2026-11-17': '17 November · teacher’s notes',
   '2026-11-16': '16 November · teacher’s notes',
@@ -319,6 +321,271 @@ function verbPair(content: {
 
 const importedPracticeItems: PracticeItem[] = [
   item("recall", "Say it in Dutch", {
+    "id": "recall-wennen-aan",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "daily-life",
+        "prepositions"
+    ],
+    "title": "Get used to",
+    "prompt": "Say “I have to get used to the weather”.",
+    "answer": "Ik moet aan het weer wennen.",
+    "dutch": "Ik moet aan het weer wennen.",
+    "english": "Get used to",
+    "explanation": "Use wennen aan. After moet, the infinitive wennen comes at the end.",
+    "quote": "Wennen aan = to get used to",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-ik-snap-het",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "conversation"
+    ],
+    "title": "I get it",
+    "prompt": "Say that you understand: “I get it”.",
+    "answer": "Ik snap het.",
+    "dutch": "Ik snap het.",
+    "english": "I get it",
+    "explanation": "Snappen means to understand. Ik snap het is a natural everyday reply.",
+    "quote": "Ik snap het = I see, I get it",
+    "adapted": true
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-luxeprobleem",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "conversation"
+    ],
+    "title": "A first-world problem",
+    "prompt": "Say “a first-world problem”.",
+    "answer": "een luxeprobleem",
+    "dutch": "een luxeprobleem",
+    "english": "A first-world problem",
+    "explanation": "Luxeprobleem is written as one word. It describes a problem that comes from a comfortable or privileged situation.",
+    "quote": "Luxe probleem",
+    "adapted": true
+}),
+  item("recall", "Translate into English", {
+    "id": "recall-er-place-utrecht",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "travel",
+        "word-choice"
+    ],
+    "title": "Mijn vriend is vaak in Utrecht, maar ik kom er nooit.",
+    "prompt": "Translate into English.",
+    "answer": "My friend is often in Utrecht, but I never go there.",
+    "dutch": "Mijn vriend is vaak in Utrecht, maar ik kom er nooit.",
+    "english": "Mijn vriend is vaak in Utrecht, maar ik kom er nooit.",
+    "explanation": "Er refers back to Utrecht: it means there in this sentence.",
+    "quote": "Mijn vriend is vaak in Utrecht, maar ik kom er nooit.",
+    "adapted": true,
+    "label": "Dutch → English",
+    "promptLanguage": "nl",
+    "answerLanguage": "en"
+}),
+  item("recall", "Say it in Dutch", {
+    "id": "recall-er-quantity-books",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "pronouns-articles"
+    ],
+    "title": "Sixty of them",
+    "prompt": "You are talking about books. Say “I have sixty of them”, using er.",
+    "answer": "Ik heb er zestig.",
+    "dutch": "Ik heb er zestig.",
+    "english": "Sixty of them",
+    "explanation": "Er replaces the previously mentioned plural noun boeken. Keep er with the quantity.",
+    "quote": "Ik heb veel boeken. Ik heb er 60.",
+    "adapted": true
+}),
+  item("build", "Build a phrase", {
+    "id": "build-er-blij-mee",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "I am happy with it.",
+    "prompt": "I am happy with it.",
+    "answer": "Ik ben er blij mee.",
+    "dutch": "Ik ben er blij mee.",
+    "english": "I am happy with it.",
+    "explanation": "Blij met iets becomes er blij mee: met changes to mee.",
+    "quote": "Ik ben er blij mee.",
+    "adapted": true,
+    "tokens": [
+        "Ik",
+        "ben",
+        "er",
+        "blij",
+        "mee"
+    ],
+    "acceptedAnswers": [
+        "Ik ben er blij mee."
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-er-zin-in",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "I am looking forward to it.",
+    "prompt": "I am looking forward to it.",
+    "answer": "Ik heb er zin in.",
+    "dutch": "Ik heb er zin in.",
+    "english": "I am looking forward to it.",
+    "explanation": "Zin hebben in iets becomes er zin in hebben.",
+    "quote": "ik heb er zin in.",
+    "adapted": true,
+    "tokens": [
+        "Ik",
+        "heb",
+        "er",
+        "zin",
+        "in"
+    ],
+    "acceptedAnswers": [
+        "Ik heb er zin in."
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-er-dog-park",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "There is a dog walking in the park.",
+    "prompt": "There is a dog walking in the park.",
+    "answer": "Er loopt een hond in het park.",
+    "dutch": "Er loopt een hond in het park.",
+    "english": "There is a dog walking in the park.",
+    "explanation": "Er introduces een hond. Loopt agrees with the singular hond.",
+    "quote": "Er loopt een hond in het park.",
+    "adapted": true,
+    "tokens": [
+        "Er",
+        "loopt",
+        "een hond",
+        "in het park"
+    ],
+    "acceptedAnswers": [
+        "Er loopt een hond in het park.",
+        "In het park loopt er een hond."
+    ]
+}),
+  item("build", "Build a phrase", {
+    "id": "build-winter-travel",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-order",
+        "conversation"
+    ],
+    "title": "Many Dutch people travel to another country in winter.",
+    "prompt": "Many Dutch people travel to another country in winter.",
+    "answer": "Veel Nederlanders reizen in de winter naar een ander land.",
+    "dutch": "Veel Nederlanders reizen in de winter naar een ander land.",
+    "english": "Many Dutch people travel to another country in winter.",
+    "explanation": "When In de winter comes first, reizen comes before Veel Nederlanders.",
+    "quote": "Veel Nederlanders reizen in de winter naar een ander land.",
+    "adapted": true,
+    "tokens": [
+        "Veel Nederlanders",
+        "reizen",
+        "in de winter",
+        "naar een ander land"
+    ],
+    "acceptedAnswers": [
+        "Veel Nederlanders reizen in de winter naar een ander land.",
+        "In de winter reizen veel Nederlanders naar een ander land."
+    ]
+}),
+  item("contrast", "Know the difference", {
+    "id": "contrast-er-passive-no-work",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-order",
+        "work"
+    ],
+    "title": "No work today",
+    "prompt": "Say “No work is being done today”, using er wordt.",
+    "answer": "Er wordt vandaag niet gewerkt.",
+    "dutch": "Er wordt vandaag niet gewerkt.",
+    "english": "No work today",
+    "explanation": "This impersonal passive has no person as its subject. Use wordt with gewerkt.",
+    "quote": "Er wordt vandaag niet gewerkt = No work is done today.",
+    "adapted": true
+}),
+  item("contrast", "Know the difference", {
+    "id": "contrast-passive-mistake",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-order"
+    ],
+    "title": "A mistake is being made",
+    "prompt": "Say “A mistake is being made”.",
+    "answer": "Een fout wordt gemaakt.",
+    "dutch": "Een fout wordt gemaakt.",
+    "english": "A mistake is being made",
+    "explanation": "Een fout is the subject. Wordt plus gemaakt forms the passive.",
+    "quote": "Een fout wordt gemaakt.",
+    "adapted": true
+}),
+  item("contrast", "Know the difference", {
+    "id": "contrast-die-dat-objects",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "pronouns-articles"
+    ],
+    "title": "That book and that screen",
+    "prompt": "Say “that book” and “that screen”.",
+    "answer": "dat boek / dat scherm",
+    "dutch": "dat boek / dat scherm",
+    "english": "That book and that screen",
+    "explanation": "Both nouns take het, so use dat. With a de-word such as de hond, use die hond.",
+    "quote": "Dat - that (het)",
+    "adapted": true
+}),
+  item("contrast", "Know the difference", {
+    "id": "contrast-er-omit-bus",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "word-choice",
+        "prepositions"
+    ],
+    "title": "Do you need er?",
+    "prompt": "Complete “Wacht je … al lang op de bus?” Do you need er here?",
+    "answer": "Wacht je al lang op de bus?",
+    "dutch": "Wacht je al lang op de bus?",
+    "english": "Do you need er?",
+    "explanation": "Op de bus is already written out. No er is needed to refer to the bus in this sentence.",
+    "quote": "Wacht je al lang op de bus?",
+    "adapted": true
+}),
+  item("recall", "Translate into English", {
+    "id": "recall-radio-er-naar",
+    "lessonId": "2026-11-24",
+    "topicIds": [
+        "prepositions"
+    ],
+    "title": "De radio? Ik luister er nooit naar.",
+    "prompt": "Translate into English.",
+    "answer": "The radio? I never listen to it.",
+    "dutch": "De radio? Ik luister er nooit naar.",
+    "english": "De radio? Ik luister er nooit naar.",
+    "explanation": "Luisteren naar de radio becomes ernaar luisteren. Er and naar can be separated by nooit.",
+    "quote": "De radio? Ik luister er nooit naar.",
+    "adapted": true,
+    "label": "Dutch → English",
+    "promptLanguage": "nl",
+    "answerLanguage": "en"
+}),
+
+  item("recall", "Say it in Dutch", {
     "id": "recall-gerecht",
     "lessonId": "2026-11-23",
     "topicIds": [
@@ -395,7 +662,7 @@ const importedPracticeItems: PracticeItem[] = [
     "dutch": "het lawaai",
     "english": "The noise",
     "explanation": "Lawaai means noise, often loud or unpleasant noise.",
-    "quote": "Het lawaai = noise",
+    "quote": "Het lawaai = the noise",
     "adapted": true
 }),
   item("recall", "Translate into English", {
